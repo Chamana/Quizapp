@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#6C63C0</color>
+    <color name="tabBackground">#FFFFFF</color>
+    <color name="tabIndicatorColor">#6C63C0</color>
+    <color name="tabSelectedColor">#6C63C0</color>
+    <color name="cardBackground">#EEEEEE</color>
+    <color name="black">#000000</color>
+    <color name="purple">#6C63C0</color>
 </resources>

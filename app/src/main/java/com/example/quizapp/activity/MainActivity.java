@@ -135,9 +135,13 @@ public class MainActivity extends AppCompatActivity
             fragment=new SocialMediaFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout,fragment).commit();
 
-        } else if (id == R.id.nav_log_out) {
+        }else if(id==R.id.nav_leader_board) {
+            startActivity(new Intent(MainActivity.this,LeaderBoard.class));
 
-        }
+        }else if (id == R.id.nav_log_out) {
+
+            }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

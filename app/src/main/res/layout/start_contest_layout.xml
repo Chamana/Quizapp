@@ -6,40 +6,34 @@
     android:layout_height="match_parent"
     tools:context=".StartContestActivity">
 
-    <ImageButton
-        android:id="@+id/CloseButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+    <View
+        android:id="@+id/view_contest"
+        android:layout_width="0dp"
+        android:layout_height="400dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_dialog" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <ImageView
         android:id="@+id/ContestImage"
-        android:src="@drawable/ic_launcher_background"
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@id/NameOfContest"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.553"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintBottom_toTopOf="@+id/NameOfContest"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        tools:srcCompat="@tools:sample/backgrounds/scenic"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -60,39 +54,24 @@
     <TextView
         android:id="@+id/NameOfContest"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="67dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginBottom="32dp"
         android:gravity="center"
-        android:text="Name of contest"
+        android:text="Name Of Contest"
+        android:textColor="#ffffff"
+        app:layout_constraintTop_toBottomOf="@id/ContestImage"
+        app:layout_constraintBottom_toBottomOf="@+id/view_contest"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ContestImage" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/LeaderBoardButton"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/rounded_button"
-        android:text="LeaderBoard"
-        app:layout_constraintBottom_toTopOf="@+id/ContestDescription"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintHorizontal_bias="0.50"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NameOfContest"
-        app:layout_constraintVertical_bias="0.077" />
-
-    <Button
-        android:id="@+id/StartGame"
-        android:layout_width="120dp"
+        android:layout_width="144dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -101,37 +80,78 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/rounded_button"
-        android:text="Start!"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="LeaderBoard"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ContestDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NameOfContest"
-        app:layout_constraintVertical_bias="0.101" />
+        app:layout_constraintVertical_bias="0.056" />
+
+    <Button
+        android:id="@+id/StartGame"
+        android:layout_width="144dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_custom"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:textColor="@color/colorAccent"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:text="Start!"
+        app:layout_constraintBottom_toTopOf="@+id/NameOfContest"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/subscribe" />
+
+    <Button
+        android:id="@+id/subscribe"
+        android:layout_width="140dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_custom"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:text="Subscribe"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/StartGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
 
     <TextView
         android:id="@+id/ContestDescription"
-        android:layout_width="401dp"
-        android:layout_height="94dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="Description of quiz"
         android:gravity="center"
+        android:text="Description Of Quiz"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NameOfContest"
-        app:layout_constraintVertical_bias="0.299" />
+        app:layout_constraintVertical_bias="0.396" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="101dp" />
+
 
 
 </android.support.constraint.ConstraintLayout>

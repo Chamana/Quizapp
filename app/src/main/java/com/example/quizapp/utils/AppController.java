@@ -4,8 +4,6 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferService;
-
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -53,7 +51,7 @@ public class AppController extends Application {
 
         if(null==static_contest_retrofit){
             static_contest_retrofit=new Retrofit.Builder()
-                    .baseUrl("http://10.177.7.120:8080")
+                    .baseUrl("http://10.177.7.110:8080")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build();

@@ -17,4 +17,6 @@ public class User extends AppCompatActivity {
         //user_iv=findViewById(R.id.user_iv);
         //Glide.with(user_iv.getContext()).load(imageUrl).into(user_iv);
     }
+
+
 }

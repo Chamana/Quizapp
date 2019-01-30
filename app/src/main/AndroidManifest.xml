@@ -20,13 +20,15 @@
         <activity android:name=".Text_check" >
         </activity>
         <activity android:name=".ScrollUser" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>  </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-        <activity android:name=".User" />
+        <activity android:name=".User" >
+        </activity>
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"

@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 public class StartContestActivity extends AppCompatActivity {
 
-    private ScaleGestureDetector scaleGestureDetector;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +21,11 @@ public class StartContestActivity extends AppCompatActivity {
         ImageView ContestimageView=(ImageView)findViewById(R.id.ContestImage);
         ContestimageView.setImageResource(R.drawable.ic_launcher_background) ;
 
-        Button startButton =findViewById(R.id.StartGame);
+       // Button startButton =findViewById(R.id.StartGame);
         Button leaderButton=findViewById(R.id.LeaderBoardButton);
+        Button subscribeButton=findViewById(R.id.subscribe);
+
+/*
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,6 +34,7 @@ public class StartContestActivity extends AppCompatActivity {
                // startActivity(intent);
             }
         });
+*/
 
 
         leaderButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +46,17 @@ public class StartContestActivity extends AppCompatActivity {
 
             }
         });
+
+        subscribeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               Toast.makeText(StartContestActivity.this, "Subscribed" ,Toast.LENGTH_SHORT ).show();
+
+            }
+        });
+
+
     }
 
 

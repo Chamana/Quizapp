@@ -60,9 +60,11 @@
 
     <Button
         android:id="@+id/leader"
-        android:layout_width="112dp"
-        android:layout_height="54dp"
+        android:layout_width="143dp"
+        android:layout_height="53dp"
         android:background="@drawable/rounded_button"
+        android:drawableLeft="@drawable/ic_leaderboard"
+        android:paddingLeft="8dp"
         android:text="LeaderBoard"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view_contest"
@@ -72,16 +74,19 @@
 
     <Button
         android:id="@+id/home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Home"
-        android:textStyle="bold"
+        android:layout_width="110dp"
+        android:layout_height="46dp"
         android:background="@drawable/rounded_button"
-        app:layout_constraintTop_toBottomOf="@+id/view_contest"
+        android:text="Home"
+        android:drawableLeft="@drawable/ic_home_black_24dp"
+        android:paddingLeft="8dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view_contest"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.593"
         app:layout_constraintStart_toEndOf="@id/guideline2"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/view_contest"
+        app:layout_constraintVertical_bias="0.565" />
 
     <TextView
         android:id="@+id/contestScore"

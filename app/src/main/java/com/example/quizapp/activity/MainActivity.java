@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.activity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -15,6 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.quizapp.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

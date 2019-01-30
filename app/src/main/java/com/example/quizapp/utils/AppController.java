@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.amazonaws.mobileconnectors.s3.transferutility.TransferService;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

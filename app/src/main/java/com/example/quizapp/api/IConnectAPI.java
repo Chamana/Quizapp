@@ -1,5 +1,6 @@
 package com.example.quizapp.api;
 
+import com.example.quizapp.adapter.LikeDislikePost;
 import com.example.quizapp.models.response.PostListItem;
 import com.example.quizapp.models.response.UserFeedResponse;
 import com.example.quizapp.models.response.UserProfileResponse;
@@ -7,7 +8,9 @@ import com.example.quizapp.models.response.UserProfileResponse;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface IConnectAPI {
@@ -16,4 +19,9 @@ public interface IConnectAPI {
     public Call<UserFeedResponse> getUserFeed(@Path("userId")int userId);
     @GET("follow/getFollowResponse/{userId}")
     public Call<UserProfileResponse> getUserInfo(@Path("userId")int userId);
+    @POST("/post/like/{postId}/{userId}")
+    public Call<LikeDislikePost> postLike(@Path("postId") String postId, @Path("userId") String userId);
+
+    @DELETE("/post/dislike/{postId}/{userId}")
+    public Call<LikeDislikePost> postDislike(@Path("postId") String postId, @Path("userId") String userId);
 }

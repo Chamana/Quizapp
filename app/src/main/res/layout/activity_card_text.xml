@@ -77,12 +77,12 @@ To quietly pass me by"
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:id="@+id/LikeImage"
+                android:id="@+id/LikeImage1"
                 android:layout_width="54dp"
                 android:layout_height="44dp"
+                android:scaleType="center"
                 android:src="@drawable/ic_favorite"
                 app:layout_constraintStart_toStartOf="parent"
-                android:scaleType="center"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView

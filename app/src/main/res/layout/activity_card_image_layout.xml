@@ -53,11 +53,11 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <ImageView
-                android:id="@+id/LikeImage"
+                android:id="@+id/LikeImage2"
                 android:layout_width="54dp"
                 android:layout_height="44dp"
-                android:src="@drawable/ic_favorite"
                 android:scaleType="center"
+                android:src="@drawable/ic_favorite"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

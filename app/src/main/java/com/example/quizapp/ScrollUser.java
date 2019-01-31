@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.quizapp.adapter.LikeDislikePost;
 import com.example.quizapp.adapter.UserFeedAdapter;
 import com.example.quizapp.api.CommentCommunicator;
 import com.example.quizapp.api.IConnectAPI;
@@ -33,10 +35,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ScrollUser extends AppCompatActivity implements CommentCommunicator {
+public class ScrollUser extends AppCompatActivity implements CommentCommunicator, UserFeedAdapter.LikeCommunicator {
 
 
     private ArrayList<List<PostListItem>> PostListItems = new ArrayList<>();
+    int likedBoolean;
+    String likedPostId;
+    String userId="1";
 
 
     private RecyclerView mRecyclerView;
@@ -135,7 +140,7 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
 //                response.body().getPostList().get(i).getPostLikes();
 
                 post.setText(String.valueOf(postcount));
-                mAdapter=new UserFeedAdapter(response.body().getPostList());
+                mAdapter=new UserFeedAdapter(response.body().getPostList(),likedBoolean,ScrollUser.this,"1");
                 ((UserFeedAdapter) mAdapter).setMethod(ScrollUser.this);
 
                 mRecyclerView.setAdapter(mAdapter);
@@ -174,5 +179,59 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
     @Override
     public void onClickOfButton(String postId) {
         Toast.makeText(this, "agaya bc"+postId, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void returnLikeStatus(int likedBoolean, String postId) {
+        this.likedBoolean=likedBoolean;
+        this.likedPostId=postId;
+        if(likedBoolean==1)
+            likePostMethod();
+        if(likedBoolean==0)
+            dislikePostMethod();
+
+    }
+
+    public void likePostMethod() {
+        System.out.println("LIKING");
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.177.7.137:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        IConnectAPI iConnectAPI = retrofit.create(IConnectAPI.class);
+        iConnectAPI.postLike(likedPostId, userId).enqueue(new Callback<LikeDislikePost>() {
+            @Override
+            public void onResponse(Call<LikeDislikePost> call, Response<LikeDislikePost> response) {
+                Log.d("TSTRESPONSE",response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<LikeDislikePost> call, Throwable t) {
+                System.out.println("Couldn't Like");
+
+            }
+        });
+    }
+
+    public void dislikePostMethod(){
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        final Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.177.7.137:8080")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        IConnectAPI iConnectAPI = retrofit.create(IConnectAPI.class);
+        iConnectAPI.postDislike(likedPostId,userId).enqueue(new Callback<LikeDislikePost>() {
+            @Override
+            public void onResponse(Call<LikeDislikePost> call, Response<LikeDislikePost> response) {
+                Log.d("TSTRESPONSE",response.body().toString());
+                //System.out.println(response.body().getMessage());
+            }
+            @Override
+            public void onFailure(Call<LikeDislikePost> call, Throwable t) {
+            }
+        });
     }
 }

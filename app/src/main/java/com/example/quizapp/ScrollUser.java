@@ -1,20 +1,26 @@
 package com.example.quizapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.quizapp.adapter.UserFeedAdapter;
 import com.example.quizapp.api.IConnectAPI;
+import com.example.quizapp.models.response.FollowResponseDTOList1Item;
+import com.example.quizapp.models.response.FollowResponseFollowerListItem;
 import com.example.quizapp.models.response.PostListItem;
 import com.example.quizapp.models.response.UserFeedResponse;
 import com.example.quizapp.models.response.UserProfileResponse;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +39,11 @@ public class ScrollUser extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-    TextView followers,following,post,name;
+    TextView followers,following,post,name,getFollowers,getFollowing;
     ImageView userdp;
-
-
+    LinearLayout followers_ll,following_ll;
+    List<FollowResponseFollowerListItem> followerList = new ArrayList<>();
+    List<FollowResponseDTOList1Item> followingList = new ArrayList<>();
 
 
 
@@ -46,9 +53,16 @@ public class ScrollUser extends AppCompatActivity {
         setContentView(R.layout.activity_scroll_user);
         post=findViewById(R.id.post1);
         userdp=findViewById(R.id.user_iv1);
+
         followers=findViewById(R.id.follower1);
         following=findViewById(R.id.following1);
+
+        followers_ll=findViewById(R.id.followers_ll);
+        following_ll=findViewById(R.id.following_ll);
+
+
         name=findViewById(R.id.name1);
+
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         OkHttpClient client1 = new OkHttpClient.Builder().build();
@@ -66,7 +80,25 @@ public class ScrollUser extends AppCompatActivity {
                 Glide.with(userdp.getContext()).load(response.body().getUserImageURL()).into(userdp);
                 followers.setText(String.valueOf(response.body().getFollowResponseFollowerList().size()));
                 following.setText(String.valueOf(response.body().getFollowResponseDTOList1().size()));
+                followerList.addAll(response.body().getFollowResponseFollowerList());
+                followingList.addAll(response.body().getFollowResponseDTOList1());
+                followers_ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i= new Intent(ScrollUser.this,FollowerActivity.class);
+                        if(followerList!=null) {
+                            i.putParcelableArrayListExtra("followerList", new ArrayList(followerList));
+                        }
+                        startActivity(i);
+                    }
+                });
+                following_ll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(ScrollUser.this,FollowingActivity.class).putExtra("followingList", (Serializable) followingList));
 
+                    }
+                });
 
 
 
@@ -94,6 +126,11 @@ public class ScrollUser extends AppCompatActivity {
             public void onResponse(Call<UserFeedResponse> call, Response<UserFeedResponse> response) {
                 System.out.println(response.body());
                 int postcount=response.body().getPostList().size();
+//                for(int i=0;i<response.body().getPostList().size();i++)
+//                {
+//                    list<
+//                }
+//                response.body().getPostList().get(i).getPostLikes();
 
                 post.setText(String.valueOf(postcount));
                 mAdapter=new UserFeedAdapter(response.body().getPostList());

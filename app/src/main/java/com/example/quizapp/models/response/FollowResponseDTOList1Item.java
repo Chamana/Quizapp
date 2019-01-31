@@ -2,8 +2,10 @@ package com.example.quizapp.models.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 
-public class FollowResponseDTOList1Item{
+
+public class FollowResponseDTOList1Item implements Serializable {
 
 	@SerializedName("userImageURL")
 	private String userImageURL;

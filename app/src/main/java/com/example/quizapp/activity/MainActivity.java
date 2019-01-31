@@ -38,15 +38,15 @@ public class MainActivity extends AppCompatActivity
         TabLayout.Tab contest = tabLayout.newTab();
         contest.setText("Contest");
         contest.setIcon(R.drawable.contest);
-        tabLayout.addTab(contest,true);
+        tabLayout.addTab(contest, true);
 
         TabLayout.Tab socialMedia = tabLayout.newTab();
         socialMedia.setText("Social Media");
         socialMedia.setIcon(R.drawable.socialmedia);
         tabLayout.addTab(socialMedia);
-       if(savedInstanceState==null){
-            fragment=new ContestFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout,fragment).commit();
+        if (savedInstanceState == null) {
+            fragment = new ContestFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
         }
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -129,18 +129,18 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_profile) {
             // Handle the camera action
         } else if (id == R.id.nav_contest) {
-            fragment=new ContestFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout,fragment).commit();
+            fragment = new ContestFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
         } else if (id == R.id.nav_social_media) {
-            fragment=new SocialMediaFragment();
-            getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout,fragment).commit();
+            fragment = new SocialMediaFragment();
+            getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
 
-        }else if(id==R.id.nav_leader_board) {
-            startActivity(new Intent(MainActivity.this,LeaderBoard.class));
+        } else if (id == R.id.nav_leader_board) {
+            startActivity(new Intent(MainActivity.this, LeaderBoard.class));
 
-        }else if (id == R.id.nav_log_out) {
+        } else if (id == R.id.nav_log_out) {
 
-            }
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,15 +1,13 @@
 package com.example.quizapp.api;
 
 import com.example.quizapp.models.request.UserGetAllContestRequest;
+import com.example.quizapp.models.response.GetAllContestResponse;
 import com.example.quizapp.models.response.contestDetails.GetContestDetailsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.GET;
-import retrofit2.http.Path;
-
-import com.example.quizapp.models.response.GetAllContestResponse;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface IConnectAPI {
 

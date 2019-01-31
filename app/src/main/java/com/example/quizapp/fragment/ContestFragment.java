@@ -35,7 +35,6 @@ public class ContestFragment extends Fragment implements Icommunicator {
     private RecyclerView contestrecyclerView;
     private GridLayoutManager gridLayoutManager;
     private GetAllContestResponse getAllContestResponses = new GetAllContestResponse();
-    // private List<ResponseItem> contestResponseList=new ArrayList<>();
     private IConnectAPI iConnectAPI;
     private ContestCardViewAdapter contestCardViewAdapter;
     private String userId = "u1";
@@ -52,8 +51,6 @@ public class ContestFragment extends Fragment implements Icommunicator {
         contestrecyclerView = view.findViewById(R.id.main_screen_fragment_contest_recycler_view);
         gridLayoutManager = new GridLayoutManager(contestrecyclerView.getContext(), 2);
         contestrecyclerView.setLayoutManager(gridLayoutManager);
-        /*contestCardViewAdapter = new ContestCardViewAdapter(getAllContestResponses.getResponse(), logos);
-        contestrecyclerView.setAdapter(contestCardViewAdapter);*/
         userGetAllContestRequest.setUserId(userId);
 
         iConnectAPI = AppController.retrofitContest.create(IConnectAPI.class);
@@ -65,7 +62,7 @@ public class ContestFragment extends Fragment implements Icommunicator {
                     getAllContestResponses = response.body();
 
                 }
-                contestCardViewAdapter = new ContestCardViewAdapter(getAllContestResponses.getResponse(), logos,ContestFragment.this);
+                contestCardViewAdapter = new ContestCardViewAdapter(getAllContestResponses.getResponse(), logos, ContestFragment.this);
                 contestrecyclerView.setAdapter(contestCardViewAdapter);
                 contestCardViewAdapter.notifyDataSetChanged();
 
@@ -79,10 +76,11 @@ public class ContestFragment extends Fragment implements Icommunicator {
         });
         return view;
     }
+
     @Override
-    public void navigate(int position){
-        Intent intent=new Intent(getContext(), StartContestActivity.class);
-        intent.putExtra("contestId",getAllContestResponses.getResponse().get(position).getContestId());
+    public void navigate(int position) {
+        Intent intent = new Intent(getContext(), StartContestActivity.class);
+        intent.putExtra("contestId", getAllContestResponses.getResponse().get(position).getContestId());
         startActivity(intent);
     }
 

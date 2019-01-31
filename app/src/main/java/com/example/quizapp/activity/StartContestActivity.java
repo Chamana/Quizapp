@@ -1,4 +1,4 @@
-package com.example.quizapp;
+package com.example.quizapp.activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.models.response.contestDetails.GetContestDetailsResponse;

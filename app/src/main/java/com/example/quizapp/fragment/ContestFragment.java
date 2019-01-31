@@ -12,8 +12,8 @@ import com.example.quizapp.R;
 import com.example.quizapp.adapter.ContestCardViewAdapter;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
-import com.example.quizapp.models.Response.GetAllContestResponse;
-import com.example.quizapp.models.Response.ResponseItem;
+import com.example.quizapp.models.response.GetAllContestResponse;
+import com.example.quizapp.models.response.ResponseItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -6,10 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-import com.example.quizapp.models.Response.GetAllContestResponse;
-
-import retrofit2.Call;
-import retrofit2.http.GET;
+import com.example.quizapp.models.response.GetAllContestResponse;
 
 public interface IConnectAPI {
 

@@ -1,4 +1,4 @@
-package com.example.quizapp.models.Response;
+package com.example.quizapp.models.response;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -9,10 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EndContestActivity">
+        <activity android:name=".activity.EndContestActivity">
 
         </activity>
-        <activity android:name=".StartContestActivity">
+        <activity android:name=".activity.StartContestActivity">
 
         </activity>
         <activity

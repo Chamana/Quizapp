@@ -1,4 +1,4 @@
-package com.example.quizapp.models.Response;
+package com.example.quizapp.models.response;
 
 import java.util.List;
 import com.google.gson.annotations.SerializedName;
@@ -26,7 +26,7 @@ public class GetAllContestResponse{
 		this.response = response;
 	}
 
-	public List<ResponseItem> getResponse(){
+	public List<com.example.quizapp.models.response.ResponseItem> getResponse(){
 		return response;
 	}
 

@@ -7,6 +7,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AppController extends Application {
+
     public static Retrofit retrofitContest=null;
     @Override
     public void onCreate(){
@@ -16,7 +17,7 @@ public class AppController extends Application {
             OkHttpClient client = new OkHttpClient.Builder().build();
 
             retrofitContest = new Retrofit.Builder()
-                    .baseUrl("https://10.177.7.120:8080")
+                    .baseUrl("http://10.177.7.110:8080/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

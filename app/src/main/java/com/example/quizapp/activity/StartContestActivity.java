@@ -3,6 +3,7 @@ package com.example.quizapp.activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
+import com.example.quizapp.models.request.UserGetAllContestRequest;
 import com.example.quizapp.models.response.contestDetails.GetContestDetailsResponse;
 
 import retrofit2.Call;
@@ -23,6 +25,7 @@ public class StartContestActivity extends AppCompatActivity {
     private IConnectAPI iConnectAPI;
     TextView categoryName, noOfQuestions,difficultyLevel,noOfSkips,contestName;
     private GetContestDetailsResponse getContestDetailsResponse;
+    private UserGetAllContestRequest userGetAllContestRequest = new UserGetAllContestRequest();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class StartContestActivity extends AppCompatActivity {
         setContentView(R.layout.start_contest_layout);
         Intent intent = getIntent();
         String contestId=intent.getStringExtra("contestId");
+        Log.e("Id",contestId.toString());
+
+        userGetAllContestRequest.setUserId("u1");
 
         ImageView ContestimageView=(ImageView)findViewById(R.id.ContestImage);
         ContestimageView.setImageResource(R.drawable.ic_launcher_background) ;
@@ -49,8 +55,8 @@ public class StartContestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(StartContestActivity.this, "current leaderboard" ,Toast.LENGTH_SHORT ).show();
-               // Intent intent= new Intent(StartContestActivity.this, LeaderBoard.class);
-               // startActivity(intent);
+                Intent intent= new Intent(StartContestActivity.this, LeaderBoard.class);
+                startActivity(intent);
 
             }
         });
@@ -67,7 +73,7 @@ public class StartContestActivity extends AppCompatActivity {
 
 
       iConnectAPI= AppController.retrofit.create(IConnectAPI.class);
-        iConnectAPI.getContestDetails(contestId).enqueue(new Callback<GetContestDetailsResponse>() {
+        iConnectAPI.getContestDetails(contestId,userGetAllContestRequest).enqueue(new Callback<GetContestDetailsResponse>() {
             @Override
             public void onResponse(Call<GetContestDetailsResponse> call, Response<GetContestDetailsResponse> response) {
                if(response.isSuccessful())
@@ -77,6 +83,7 @@ public class StartContestActivity extends AppCompatActivity {
                    {
 
                        subscribeButton.setText("Start");
+                       subscribeButton.setCompoundDrawables(getResources().getDrawable( R.drawable.startcontest ), null,null,null);
                    }
                    else
                    {
@@ -84,9 +91,9 @@ public class StartContestActivity extends AppCompatActivity {
                    }
 
                    categoryName.setText(getContestDetailsResponse.getResponse().getCategoryId());
-                   noOfQuestions.setText(getContestDetailsResponse.getResponse().getNoOfQuestions());
+                   noOfQuestions.setText(String.valueOf(getContestDetailsResponse.getResponse().getNoOfQuestions()));
                    difficultyLevel.setText(getContestDetailsResponse.getResponse().getDifficulty());
-                   noOfSkips.setText(getContestDetailsResponse.getResponse().getSkips());
+                   noOfSkips.setText(String.valueOf(getContestDetailsResponse.getResponse().getSkips()));
                    contestName.setText(getContestDetailsResponse.getResponse().getName());
 
 

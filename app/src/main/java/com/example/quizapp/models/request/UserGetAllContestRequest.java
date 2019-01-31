@@ -1,9 +1,10 @@
 package com.example.quizapp.models.request;
 
-
+//import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
-public class ContestIdRequest{
+//@Generated("com.robohorse.robopojogenerator")
+public class UserGetAllContestRequest{
 
 	@SerializedName("userId")
 	private String userId;
@@ -19,7 +20,7 @@ public class ContestIdRequest{
 	@Override
  	public String toString(){
 		return 
-			"ContestIdRequest{" + 
+			"UserGetAllContestRequest{" + 
 			"userId = '" + userId + '\'' + 
 			"}";
 		}

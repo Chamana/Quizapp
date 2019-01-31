@@ -51,6 +51,7 @@ public class LeaderBoard extends AppCompatActivity {
                 leaderBoardCardViewAdapter = new LeaderBoardCardViewAdapter(overallLeaderboardResponse, logos);
                 leaderBoardRecyclerView.setAdapter(leaderBoardCardViewAdapter);
                 leaderBoardCardViewAdapter.notifyDataSetChanged();
+
             }
 
             @Override

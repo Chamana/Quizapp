@@ -16,7 +16,7 @@ public class AppController extends Application {
             OkHttpClient client = new OkHttpClient.Builder().build();
 
             retrofitContest = new Retrofit.Builder()
-                    .baseUrl("https://10.177.7.120:8080/")
+                    .baseUrl("https://10.177.7.120:8080")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(client)
                     .build();

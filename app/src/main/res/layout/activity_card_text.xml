@@ -17,173 +17,120 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/PostImageView"
+            android:id="@+id/posteeProfilePictureT"
             android:layout_width="56dp"
             android:layout_height="51dp"
             android:layout_margin="10dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginRight="64dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:src="@drawable/bunny"
-            app:layout_constraintBottom_toTopOf="@+id/PostText"
-            app:layout_constraintEnd_toStartOf="@+id/nameTextView"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="244dp"
-            android:layout_height="52dp"
+            android:id="@+id/posteeNameT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="52dp"
             android:layout_marginRight="52dp"
             android:gravity="center"
             android:hint="Nameeeee"
             android:text="user's Name"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/posteeProfilePictureT"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/PostText"
-            android:layout_width="373dp"
-            android:layout_height="143dp"
+            android:id="@+id/postText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:text="She's got eyes of the bluest skies
-As if they thought of rain
-I hate to look into those eyes
-And see an ounce of pain
-Her hair reminds me of a warm, safe place
-Where as a child I'd hide
-And pray for the thunder and the rain
-To quietly pass me by"
+            android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout2"
-            android:layout_width="116dp"
-            android:layout_height="42dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <ImageView
-                android:id="@+id/LikeImage"
-                android:layout_width="54dp"
-                android:layout_height="44dp"
-                android:src="@drawable/ic_favorite"
-                app:layout_constraintStart_toStartOf="parent"
-                android:scaleType="center"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/LikeText"
-                android:layout_width="52dp"
-                android:layout_height="34dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Likes"
-
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/LikeImage"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout1"
-            android:layout_width="116dp"
-            android:layout_height="42dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/PostText"
-            app:layout_constraintVertical_bias="1.0">
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/numberDisplayerT">
 
-            <ImageView
-                android:id="@+id/commentimage"
-                android:layout_width="56dp"
-                android:layout_height="44dp"
-                android:src="@drawable/comment"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:scaleType="center"/>
-
-            <TextView
-                android:id="@+id/commentView"
-                android:layout_width="46dp"
-                android:layout_height="32dp"
+            <Button
+                android:id="@+id/likeButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="Comment"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_like"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Like" />
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toEndOf="@+id/commentimage"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+            <Button
+                android:id="@+id/commentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_comment"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Comments" />
 
-        </android.support.constraint.ConstraintLayout>
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_share"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:text="Share" />
 
+        </LinearLayout>
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/numberDisplayerT"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="270dp" />
-
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="116dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="12dp"
-            android:layout_marginLeft="12dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintStart_toEndOf="@+id/constraintLayout1">
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="42dp"
-                android:layout_height="39dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:srcCompat="@drawable/ic_menu_share"
-                />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="54dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="share"
-                android:scaleType="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView7" />
-        </android.support.constraint.ConstraintLayout>
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/postText" />
 
 
     </android.support.constraint.ConstraintLayout>

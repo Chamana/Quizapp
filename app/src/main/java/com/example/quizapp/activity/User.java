@@ -1,9 +1,10 @@
-package com.example.quizapp;
+package com.example.quizapp.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bumptech.glide.Glide;
+import com.example.quizapp.R;
 
 public class User extends AppCompatActivity {
     //de.hdodenhof.circleimageview.CircleImageView user_iv;

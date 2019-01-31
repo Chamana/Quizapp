@@ -1,12 +1,13 @@
-package com.example.quizapp;
+package com.example.quizapp.activity;
 
 import android.app.ProgressDialog;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.example.quizapp.R;
 
 public class Video_check extends AppCompatActivity {
     VideoView video;
@@ -26,7 +27,6 @@ public class Video_check extends AppCompatActivity {
     Uri uri = Uri.parse(video_url);
     video.setVideoURI(uri);
     video.requestFocus();
-
     video.start();
 
     video.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

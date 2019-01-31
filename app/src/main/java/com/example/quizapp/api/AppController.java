@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AppController extends Application {
 
     public static Retrofit retrofit = null;
-    public static Retrofit retrofitContest = null;
+
     public static Retrofit retrofitLeaderboard = null;
 
     @Override
@@ -25,19 +25,19 @@ public class AppController extends Application {
                     .build();
         }
 
-        if (null == retrofitContest) {
+//        if (null == retrofitContest) {
+//
+//            OkHttpClient client = new OkHttpClient.Builder().build();
+//
+//            retrofitContest = new Retrofit.Builder()
+//                    .baseUrl("http://10.177.7.110:8080/")
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(client)
+//                    .build();
+//
+//        }
 
-            OkHttpClient client = new OkHttpClient.Builder().build();
-
-            retrofitContest = new Retrofit.Builder()
-                    .baseUrl("http://10.177.7.110:8080/")
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .client(client)
-                    .build();
-
-        }
-
-        if(null==retrofitLeaderboard){
+       if(null==retrofitLeaderboard){
             OkHttpClient client = new OkHttpClient.Builder().build();
 
             retrofitLeaderboard = new Retrofit.Builder()

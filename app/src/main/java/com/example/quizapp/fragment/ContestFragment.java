@@ -53,7 +53,7 @@ public class ContestFragment extends Fragment implements Icommunicator {
         contestrecyclerView.setLayoutManager(gridLayoutManager);
         userGetAllContestRequest.setUserId(userId);
 
-        iConnectAPI = AppController.retrofitContest.create(IConnectAPI.class);
+        iConnectAPI = AppController.retrofit.create(IConnectAPI.class);
         iConnectAPI.getAllContest(userGetAllContestRequest).enqueue(new Callback<GetAllContestResponse>() {
             @Override
             public void onResponse(Call<GetAllContestResponse> call, Response<GetAllContestResponse> response) {

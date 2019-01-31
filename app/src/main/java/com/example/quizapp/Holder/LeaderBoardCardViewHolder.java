@@ -11,14 +11,20 @@ import com.example.quizapp.R;
 
 public class LeaderBoardCardViewHolder extends RecyclerView.ViewHolder {
     private TextView userName;
+    private TextView userRank;
+    private TextView userScore;
     private ImageView userImage;
     public LeaderBoardCardViewHolder(@NonNull View itemView) {
         super(itemView);
         userName=itemView.findViewById(R.id.leaderboardUserName);
+        userRank=itemView.findViewById(R.id.leaderboardRank);
+        userScore=itemView.findViewById(R.id.leaderboardScore);
         userImage=itemView.findViewById(R.id.leaderboardCircularImage);
     }
-    public void bind(String userName, Object userImageUrl){
+    public void bind(String userName,String userRank,String userScore, Object userImageUrl){
         this.userName.setText(userName);
+        this.userRank.setText(userRank);
+        this.userScore.setText(userScore);
         Glide.with(this.userImage.getContext()).load(userImageUrl).into(this.userImage);
     }
 }

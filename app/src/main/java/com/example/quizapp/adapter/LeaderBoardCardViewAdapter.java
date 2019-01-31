@@ -27,7 +27,7 @@ public class LeaderBoardCardViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((LeaderBoardCardViewHolder) viewHolder).bind(nameList.get(i),  images.get(i));
+        ((LeaderBoardCardViewHolder) viewHolder).bind(nameList.get(i),nameList.get(i),nameList.get(i),  images.get(i));
 
     }
 

@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class AppController extends Application {
 
     public static Retrofit retrofit = null;
-
+    public static Retrofit postRetrofit =null;
     public static Retrofit retrofitLeaderboard = null;
 
     @Override
@@ -26,20 +26,30 @@ public class AppController extends Application {
         }
 
 //        if (null == retrofitContest) {
-//
-//            OkHttpClient client = new OkHttpClient.Builder().build();
-//
-//            retrofitContest = new Retrofit.Builder()
-//                    .baseUrl("http://10.177.7.110:8080/")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .client(client)
-//                    .build();
-//
-//        }
+////
+////            OkHttpClient client = new OkHttpClient.Builder().build();
+////
+////            retrofitContest = new Retrofit.Builder()
+////                    .baseUrl("http://10.177.7.110:8080/")
+////                    .addConverterFactory(GsonConverterFactory.create())
+////                    .client(client)
+////                    .build();
+////
+////        }
+
+        if(postRetrofit ==null)
+        {
+            OkHttpClient client=new OkHttpClient.Builder().build();
+            postRetrofit=new Retrofit.Builder()
+                    .baseUrl("http://10.177.7.137:8080")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(client)
+                    .build();
+
+        }
 
        if(null==retrofitLeaderboard){
             OkHttpClient client = new OkHttpClient.Builder().build();
-
             retrofitLeaderboard = new Retrofit.Builder()
                     .baseUrl("http://10.177.7.118:8000/")
                     .addConverterFactory(GsonConverterFactory.create())

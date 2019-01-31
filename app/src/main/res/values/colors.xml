@@ -6,4 +6,13 @@
     <color name="windowBackgroundColor">#F0F6F6</color>
     <color name="black">#000000</color>
     <color name="white">#E5E1EC</color>
+    <color name="colorPrimary">#6C63C0</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#6C63C0</color>
+    <color name="tabBackground">#FFFFFF</color>
+    <color name="tabIndicatorColor">#6C63C0</color>
+    <color name="tabSelectedColor">#6C63C0</color>
+    <color name="cardBackground">#EEEEEE</color>
+    <color name="black">#000000</color>
+    <color name="purple">#6C63C0</color>
 </resources>

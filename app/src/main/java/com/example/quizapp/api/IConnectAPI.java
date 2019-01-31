@@ -14,7 +14,16 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
+import com.example.quizapp.models.Response.GetAllContestResponse;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+
 public interface IConnectAPI {
+
+    @GET("/contests/getAll")
+    public Call<GetAllContestResponse> getAllContest();
+
 
 
     @POST("/contests/{contestId}/play/nextQuestion")

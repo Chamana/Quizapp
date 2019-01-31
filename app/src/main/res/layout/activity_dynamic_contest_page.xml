@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/layoutDynamicContest"
     tools:context=".utils.DynamicContestPage">
 
     <LinearLayout
@@ -30,6 +31,7 @@
             android:layout_marginBottom="8dp"
             android:text="TextView"
             android:textSize="20sp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_halt_timer">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tv_winner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

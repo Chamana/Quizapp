@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,7 @@ import com.example.quizapp.models.request.dynamicSubmitRequest.Request;
 import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitContest;
 import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitQuestion;
 import com.example.quizapp.models.response.DynamicResponse;
-import com.example.quizapp.models.response.SubmitQuesResponse;
+import com.example.quizapp.models.response.GetQuestionWinner;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,7 +46,7 @@ public class DynamicContestPage extends AppCompatActivity {
     VideoView ques_vv;
     TextView ques_text;
     CheckBox cb1,cb2,cb3,cb4,cb5;
-    Button submit;
+    Button b_submit_ques;
     long timer_halt=10000;
     long timer_ques;
     boolean run_ques=false;
@@ -56,11 +57,12 @@ public class DynamicContestPage extends AppCompatActivity {
     Integer currentQuestion = 1;
     TextView tv_halt_timer;
     TextView tv_ques_timer;
-    String contestId="f073622a-e074-4da6-b92a-f21579697b17";
+    String contestId="dbbfb173-f399-4619-93ad-448066cf6e99";
     IConnectAPI iConnectAPI;
     DynamicQuestionDTO dynamicQuestionDTO;
     String userId="hussain";
-    Button b_submit;
+    Button b_submit_contest;
+    TextView tv_winner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,16 +80,17 @@ public class DynamicContestPage extends AppCompatActivity {
         ques_text=findViewById(R.id.text);
         tv_ques_timer=findViewById(R.id.tv_ques_timer);
         tv_halt_timer=findViewById(R.id.tv_halt_timer);
-        submit=findViewById(R.id.submit);
+        b_submit_ques =findViewById(R.id.submit);
         ques=findViewById(R.id.ques_view);
         halt=findViewById(R.id.halt_view);
-        b_submit=findViewById(R.id.b_submit);
+        b_submit_contest =findViewById(R.id.b_submit);
+        tv_winner=findViewById(R.id.tv_winner);
 
         iConnectAPI= AppController.dynamic_contest_retrofit.create(IConnectAPI.class);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        submit.setOnClickListener(new View.OnClickListener() {
+        b_submit_ques.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submit_ans();
@@ -95,7 +98,7 @@ public class DynamicContestPage extends AppCompatActivity {
             }
         });
 
-        b_submit.setOnClickListener(new View.OnClickListener() {
+        b_submit_contest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitContest();
@@ -149,7 +152,11 @@ public class DynamicContestPage extends AppCompatActivity {
         iConnectAPI.submitDynamicQuestion(contestId,submitQuestion).enqueue(new Callback<DynamicResponse>() {
             @Override
             public void onResponse(Call<DynamicResponse> call, Response<DynamicResponse> response) {
-                Log.d("Submit Dynamic : ",response.body().toString());
+                if(response.body().getStatus().equals("success")) {
+                    b_submit_ques.setVisibility(View.GONE);
+                    showSnackBar("Your answer is submitted");
+                }
+                //Log.d("Submit Dynamic : ",response.body().toString());
             }
 
             @Override
@@ -217,6 +224,7 @@ public class DynamicContestPage extends AppCompatActivity {
     private void updateUI(DynamicQuestionDTO dynamicQuestionDTO) throws IOException {
         if(null==dynamicQuestionDTO)
         {
+
             ques.setVisibility(View.GONE);
             halt.setVisibility(View.VISIBLE);
 
@@ -227,6 +235,13 @@ public class DynamicContestPage extends AppCompatActivity {
 
             halt.setVisibility(View.GONE);
             ques.setVisibility(View.VISIBLE);
+            b_submit_ques.setVisibility(View.VISIBLE);
+
+            cb1.setChecked(false);
+            cb2.setChecked(false);
+            cb3.setChecked(false);
+            cb4.setChecked(false);
+            cb5.setChecked(false);
 
             stopHaltTimer();
             timer_ques=dynamicQuestionDTO.getDuration()*1000;
@@ -325,7 +340,7 @@ public class DynamicContestPage extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    b_submit.setVisibility(View.VISIBLE);
+                    b_submit_contest.setVisibility(View.VISIBLE);
                 }
                 else {
                     timer_halt = 10000;
@@ -336,11 +351,29 @@ public class DynamicContestPage extends AppCompatActivity {
                     }
                     ques.setVisibility(View.GONE);
                     halt.setVisibility(View.VISIBLE);
+                    getWinnerQuestion();
                 }
             }
         }.start();
 
         run_ques=true;
+    }
+
+    private void getWinnerQuestion() {
+        iConnectAPI.getQuestionWinner(contestId,dynamicQuestionDTO.getQuestionId()).enqueue(new Callback<GetQuestionWinner>() {
+            @Override
+            public void onResponse(Call<GetQuestionWinner> call, Response<GetQuestionWinner> response) {
+                if(null==response)
+                    tv_winner.setText(response.body().getErrorMessage());
+                else
+                    tv_winner.setText(response.body().getResponse());
+            }
+
+            @Override
+            public void onFailure(Call<GetQuestionWinner> call, Throwable t) {
+
+            }
+        });
     }
 
     public void startHaltTimer(){
@@ -354,6 +387,7 @@ public class DynamicContestPage extends AppCompatActivity {
 
             @Override
             public void onFinish() {
+                tv_halt_timer.setText("Admin is sleeping..."+(new String(Character.toChars(0x1F634))));
                 updateCurrentQuestion();
             }
         }.start();
@@ -414,7 +448,10 @@ public class DynamicContestPage extends AppCompatActivity {
         timeLeftText+=seconds;
 
         tv_halt_timer.setText(timeLeftText);
+    }
 
+    public void showSnackBar(String msg){
+        Snackbar.make(findViewById(R.id.layoutDynamicContest),msg,Snackbar.LENGTH_LONG).show();
     }
 
 }

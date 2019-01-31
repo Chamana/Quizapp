@@ -8,6 +8,7 @@ import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitQuestion;
 import com.example.quizapp.models.response.DynamicResponse;
 import com.example.quizapp.models.response.GetContestQuestion;
 import com.example.quizapp.models.response.GetContestQuestionBody;
+import com.example.quizapp.models.response.GetQuestionWinner;
 import com.example.quizapp.models.response.GetSkippedQuestion;
 import com.example.quizapp.models.response.SubmitQuesResponse;
 
@@ -48,4 +49,8 @@ public interface IConnectAPI {
 
     @POST("/contests/{contestId}/play/finish")
     public Call<DynamicResponse> submitDynamicContest(@Path(value = "contestId") String contestId,@Body SubmitContest submitContest);
+
+    @GET("/contests/{contestId}/play/question/{questionId}/winner")
+    public Call<GetQuestionWinner> getQuestionWinner(@Path(value = "contestId") String contestId, @Path(value = "questionId") String questionId);
+
 }

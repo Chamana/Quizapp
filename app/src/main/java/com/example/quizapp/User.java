@@ -45,7 +45,7 @@ public class User extends AppCompatActivity {
                 .client(client)
                 .build();
         IConnectAPI iApi = retrofit.create(IConnectAPI.class);
-        iApi.getUserInfo(2).enqueue(new Callback<UserProfileResponse>() {
+        iApi.getUserInfo(1).enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                name.setText(response.body().getUsername());

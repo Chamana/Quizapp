@@ -59,7 +59,7 @@ public class ScrollUser extends AppCompatActivity {
                 .client(client1)
                 .build();
         IConnectAPI iApi1 = retrofit1.create(IConnectAPI.class);
-        iApi1.getUserInfo(2).enqueue(new Callback<UserProfileResponse>() {
+        iApi1.getUserInfo(1).enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 name.setText(response.body().getUsername());
@@ -89,16 +89,17 @@ public class ScrollUser extends AppCompatActivity {
                 .client(client)
                 .build();
         IConnectAPI iApi = retrofit.create(IConnectAPI.class);
-        iApi.getUserFeed(2).enqueue(new Callback<UserFeedResponse>() {
+        iApi.getUserFeed(1).enqueue(new Callback<UserFeedResponse>() {
             @Override
             public void onResponse(Call<UserFeedResponse> call, Response<UserFeedResponse> response) {
                 System.out.println(response.body());
                 int postcount=response.body().getPostList().size();
+
                 post.setText(String.valueOf(postcount));
                 mAdapter=new UserFeedAdapter(response.body().getPostList());
 
                 mRecyclerView.setAdapter(mAdapter);
-                Toast.makeText(ScrollUser.this, ""+response.body(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(ScrollUser.this, ""+response.body(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -65,7 +65,8 @@ To quietly pass me by"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/username1" />
+            app:layout_constraintTop_toBottomOf="@+id/username1"
+            />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout2"
@@ -85,7 +86,7 @@ To quietly pass me by"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/LikeText"
+                android:id="@+id/LikeText1"
                 android:layout_width="52dp"
                 android:layout_height="34dp"
                 android:layout_marginStart="8dp"
@@ -124,7 +125,7 @@ To quietly pass me by"
                 android:scaleType="center"/>
 
             <TextView
-                android:id="@+id/commentView"
+                android:id="@+id/comment1"
                 android:layout_width="46dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="8dp"
@@ -133,12 +134,14 @@ To quietly pass me by"
                 android:layout_marginBottom="8dp"
                 android:text="Comment"
 
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/commentimage"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+                app:layout_constraintVertical_bias="1.0"
+                />
 
         </android.support.constraint.ConstraintLayout>
 

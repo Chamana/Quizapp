@@ -2,120 +2,120 @@ package com.example.quizapp.models.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ResponseItem{
+public class ResponseItem {
 
-	@SerializedName("subscribed")
-	private boolean subscribed;
+    @SerializedName("subscribed")
+    private boolean subscribed;
 
-	@SerializedName("type")
-	private String type;
+    @SerializedName("type")
+    private String type;
 
-	@SerializedName("name")
-	private String name;
+    @SerializedName("name")
+    private String name;
 
-	@SerializedName("active")
-	private boolean active;
+    @SerializedName("active")
+    private boolean active;
 
-	@SerializedName("categoryId")
-	private String categoryId;
+    @SerializedName("categoryId")
+    private String categoryId;
 
-	@SerializedName("difficulty")
-	private String difficulty;
+    @SerializedName("difficulty")
+    private String difficulty;
 
-	@SerializedName("contestId")
-	private String contestId;
+    @SerializedName("contestId")
+    private String contestId;
 
-	@SerializedName("skips")
-	private int skips;
+    @SerializedName("skips")
+    private int skips;
 
-	@SerializedName("noOfQuestions")
-	private int noOfQuestions;
+    @SerializedName("noOfQuestions")
+    private int noOfQuestions;
 
-	public void setSubscribed(boolean subscribed){
-		this.subscribed = subscribed;
-	}
+    public boolean isSubscribed() {
+        return subscribed;
+    }
 
-	public boolean isSubscribed(){
-		return subscribed;
-	}
+    public void setSubscribed(boolean subscribed) {
+        this.subscribed = subscribed;
+    }
 
-	public void setType(String type){
-		this.type = type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public String getType(){
-		return type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public void setName(String name){
-		this.name = name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName(){
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setActive(boolean active){
-		this.active = active;
-	}
+    public boolean isActive() {
+        return active;
+    }
 
-	public boolean isActive(){
-		return active;
-	}
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 
-	public void setCategoryId(String categoryId){
-		this.categoryId = categoryId;
-	}
+    public String getCategoryId() {
+        return categoryId;
+    }
 
-	public String getCategoryId(){
-		return categoryId;
-	}
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
-	public void setDifficulty(String difficulty){
-		this.difficulty = difficulty;
-	}
+    public String getDifficulty() {
+        return difficulty;
+    }
 
-	public String getDifficulty(){
-		return difficulty;
-	}
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 
-	public void setContestId(String contestId){
-		this.contestId = contestId;
-	}
+    public String getContestId() {
+        return contestId;
+    }
 
-	public String getContestId(){
-		return contestId;
-	}
+    public void setContestId(String contestId) {
+        this.contestId = contestId;
+    }
 
-	public void setSkips(int skips){
-		this.skips = skips;
-	}
+    public int getSkips() {
+        return skips;
+    }
 
-	public int getSkips(){
-		return skips;
-	}
+    public void setSkips(int skips) {
+        this.skips = skips;
+    }
 
-	public void setNoOfQuestions(int noOfQuestions){
-		this.noOfQuestions = noOfQuestions;
-	}
+    public int getNoOfQuestions() {
+        return noOfQuestions;
+    }
 
-	public int getNoOfQuestions(){
-		return noOfQuestions;
-	}
+    public void setNoOfQuestions(int noOfQuestions) {
+        this.noOfQuestions = noOfQuestions;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"ResponseItem{" + 
-			"“subscribed” = '" + subscribed + '\'' + 
-			",“type” = '" + type + '\'' + 
-			",“name” = '" + name + '\'' + 
-			",“active” = '" + active + '\'' + 
-			",“categoryId” = '" + categoryId + '\'' + 
-			",“difficulty” = '" + difficulty + '\'' + 
-			",“contestId” = '" + contestId + '\'' + 
-			",“skips” = '" + skips + '\'' + 
-			",“noOfQuestions” = '" + noOfQuestions + '\'' + 
-			"}";
-		}
+    @Override
+    public String toString() {
+        return
+                "ResponseItem{" +
+                        "“subscribed” = '" + subscribed + '\'' +
+                        ",“type” = '" + type + '\'' +
+                        ",“name” = '" + name + '\'' +
+                        ",“active” = '" + active + '\'' +
+                        ",“categoryId” = '" + categoryId + '\'' +
+                        ",“difficulty” = '" + difficulty + '\'' +
+                        ",“contestId” = '" + contestId + '\'' +
+                        ",“skips” = '" + skips + '\'' +
+                        ",“noOfQuestions” = '" + noOfQuestions + '\'' +
+                        "}";
+    }
 }

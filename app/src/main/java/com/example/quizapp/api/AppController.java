@@ -12,7 +12,7 @@ public class AppController extends Application {
     public static Retrofit retrofitContest = null;
 
     @Override
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
         if (retrofit == null) {
             OkHttpClient client = new OkHttpClient.Builder().build();

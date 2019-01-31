@@ -1,8 +1,8 @@
 package com.example.quizapp.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +22,8 @@ import retrofit2.Response;
 
 public class StartContestActivity extends AppCompatActivity {
 
+    TextView categoryName, noOfQuestions, difficultyLevel, noOfSkips, contestName;
     private IConnectAPI iConnectAPI;
-    TextView categoryName, noOfQuestions,difficultyLevel,noOfSkips,contestName;
     private GetContestDetailsResponse getContestDetailsResponse;
     private UserGetAllContestRequest userGetAllContestRequest = new UserGetAllContestRequest();
 
@@ -32,30 +32,30 @@ public class StartContestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_contest_layout);
         Intent intent = getIntent();
-        String contestId=intent.getStringExtra("contestId");
-        Log.e("Id",contestId.toString());
+        String contestId = intent.getStringExtra("contestId");
+        Log.e("Id", contestId.toString());
 
         userGetAllContestRequest.setUserId("u1");
 
-        ImageView ContestimageView=(ImageView)findViewById(R.id.ContestImage);
-        ContestimageView.setImageResource(R.drawable.ic_launcher_background) ;
+        ImageView ContestimageView = (ImageView) findViewById(R.id.ContestImage);
+        ContestimageView.setImageResource(R.drawable.ic_launcher_background);
 
-        categoryName=findViewById(R.id.startContestCategoryName);
-        noOfQuestions=findViewById(R.id.noOfQuestions);
-        difficultyLevel=findViewById(R.id.difficultyLevel);
-        noOfSkips=findViewById(R.id.questionsSkips);
-        contestName=findViewById(R.id.NameOfContest);
-
-
-        Button leaderButton=findViewById(R.id.LeaderBoardButton);
-        final Button subscribeButton=findViewById(R.id.subscribe);
+        categoryName = findViewById(R.id.startContestCategoryName);
+        noOfQuestions = findViewById(R.id.noOfQuestions);
+        difficultyLevel = findViewById(R.id.difficultyLevel);
+        noOfSkips = findViewById(R.id.questionsSkips);
+        contestName = findViewById(R.id.NameOfContest);
 
 
-           leaderButton.setOnClickListener(new View.OnClickListener() {
+        Button leaderButton = findViewById(R.id.LeaderBoardButton);
+        final Button subscribeButton = findViewById(R.id.subscribe);
+
+
+        leaderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(StartContestActivity.this, "current leaderboard" ,Toast.LENGTH_SHORT ).show();
-                Intent intent= new Intent(StartContestActivity.this, LeaderBoard.class);
+                Toast.makeText(StartContestActivity.this, "current leaderboard", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(StartContestActivity.this, LeaderBoard.class);
                 startActivity(intent);
 
             }
@@ -65,49 +65,42 @@ public class StartContestActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-               Toast.makeText(StartContestActivity.this, "Subscribed" ,Toast.LENGTH_SHORT ).show();
+                Toast.makeText(StartContestActivity.this, "Subscribed", Toast.LENGTH_SHORT).show();
 
             }
         });
 
 
-
-      iConnectAPI= AppController.retrofit.create(IConnectAPI.class);
-        iConnectAPI.getContestDetails(contestId,userGetAllContestRequest).enqueue(new Callback<GetContestDetailsResponse>() {
+        iConnectAPI = AppController.retrofit.create(IConnectAPI.class);
+        iConnectAPI.getContestDetails(contestId, userGetAllContestRequest).enqueue(new Callback<GetContestDetailsResponse>() {
             @Override
             public void onResponse(Call<GetContestDetailsResponse> call, Response<GetContestDetailsResponse> response) {
-               if(response.isSuccessful())
-               {
-                   getContestDetailsResponse=response.body();
-                   if(getContestDetailsResponse.getResponse().isSubscribed())
-                   {
+                if (response.isSuccessful()) {
+                    getContestDetailsResponse = response.body();
+                    if (getContestDetailsResponse.getResponse().isSubscribed()) {
 
-                       subscribeButton.setText("Start");
-                       subscribeButton.setCompoundDrawables(getResources().getDrawable( R.drawable.startcontest ), null,null,null);
-                   }
-                   else
-                   {
-                       subscribeButton.setText("Subscribe");
-                   }
+                        subscribeButton.setText("Start");
+                        subscribeButton.setCompoundDrawables(getResources().getDrawable(R.drawable.startcontest), null, null, null);
+                    } else {
+                        subscribeButton.setText("Subscribe");
+                    }
 
-                   categoryName.setText(getContestDetailsResponse.getResponse().getCategoryId());
-                   noOfQuestions.setText(String.valueOf(getContestDetailsResponse.getResponse().getNoOfQuestions()));
-                   difficultyLevel.setText(getContestDetailsResponse.getResponse().getDifficulty());
-                   noOfSkips.setText(String.valueOf(getContestDetailsResponse.getResponse().getSkips()));
-                   contestName.setText(getContestDetailsResponse.getResponse().getName());
+                    categoryName.setText(getContestDetailsResponse.getResponse().getCategoryId());
+                    noOfQuestions.setText(String.valueOf(getContestDetailsResponse.getResponse().getNoOfQuestions()));
+                    difficultyLevel.setText(getContestDetailsResponse.getResponse().getDifficulty());
+                    noOfSkips.setText(String.valueOf(getContestDetailsResponse.getResponse().getSkips()));
+                    contestName.setText(getContestDetailsResponse.getResponse().getName());
 
 
-               }
+                }
             }
 
             @Override
             public void onFailure(Call<GetContestDetailsResponse> call, Throwable t) {
 
-                Toast.makeText(StartContestActivity.this,"Failure",Toast.LENGTH_SHORT).show();
+                Toast.makeText(StartContestActivity.this, "Failure", Toast.LENGTH_SHORT).show();
             }
         });
-
-
 
 
     }

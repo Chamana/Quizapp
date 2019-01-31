@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.quizapp.adapter.UserFeedAdapter;
+import com.example.quizapp.api.CommentCommunicator;
 import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.models.response.FollowResponseDTOList1Item;
 import com.example.quizapp.models.response.FollowResponseFollowerListItem;
@@ -32,10 +33,11 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ScrollUser extends AppCompatActivity {
+public class ScrollUser extends AppCompatActivity implements CommentCommunicator {
 
 
     private ArrayList<List<PostListItem>> PostListItems = new ArrayList<>();
+
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -134,6 +136,7 @@ public class ScrollUser extends AppCompatActivity {
 
                 post.setText(String.valueOf(postcount));
                 mAdapter=new UserFeedAdapter(response.body().getPostList());
+                ((UserFeedAdapter) mAdapter).setMethod(ScrollUser.this);
 
                 mRecyclerView.setAdapter(mAdapter);
 //                Toast.makeText(ScrollUser.this, ""+response.body(), Toast.LENGTH_SHORT).show();
@@ -166,5 +169,10 @@ public class ScrollUser extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public void onClickOfButton(String postId) {
+        Toast.makeText(this, "agaya bc"+postId, Toast.LENGTH_SHORT).show();
     }
 }

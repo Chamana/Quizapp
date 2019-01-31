@@ -17,6 +17,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.example.quizapp.R;
 import com.example.quizapp.Video_check;
+import com.example.quizapp.api.CommentCommunicator;
 import com.example.quizapp.models.response.PostListItem;
 
 import java.util.ArrayList;
@@ -26,7 +27,12 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     private List<PostListItem> postList;
-    ProgressDialog pd;
+    private ProgressDialog pd;
+    private CommentCommunicator commentCommunicator;
+    public void setMethod(CommentCommunicator commentCommunicator){
+        this.commentCommunicator=commentCommunicator;
+    }
+
 
 
 
@@ -113,6 +119,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView like,comment;
 
 
+
         public TextViewHolder(@NonNull View itemView) {
             super(itemView);
             textView = itemView.findViewById(R.id.PostText);
@@ -120,6 +127,8 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             username=itemView.findViewById(R.id.username1);
             like=itemView.findViewById(R.id.LikeText1);
             comment=itemView.findViewById(R.id.comment1);
+
+
         }
         public void bind(final PostListItem postListItem){
             this.textView.setText(String.valueOf("Post Text "+postListItem.getDescription()));
@@ -127,6 +136,14 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.username.setText("USERNAME " + postListItem.getUserId());
             like.setText(String.valueOf("Like " +postListItem.getPostLikes().size()));
             comment.setText(String.valueOf("Comments "+postListItem.getPostsComments().size()));
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    commentCommunicator.onClickOfButton(postListItem.getPostId());
+
+
+                }
+            });
 
 
 
@@ -141,6 +158,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         TextView like,comment;
 
 
+
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.PostImage);
@@ -148,6 +166,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             username=itemView.findViewById(R.id.username2);
             like=itemView.findViewById(R.id.LikeText2);
             comment=itemView.findViewById(R.id.comment2);
+
         }
         public void bind(final PostListItem postListItem){
 
@@ -156,6 +175,14 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.userDp.setImageResource(R.drawable.bunny);
             like.setText(String.valueOf("Likes "+ postListItem.getPostLikes().size()));
             comment.setText(String.valueOf("Comments "+postListItem.getPostsComments().size()));
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    commentCommunicator.onClickOfButton(postListItem.getPostId());
+
+
+                }
+            });
 
 
 
@@ -183,6 +210,13 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             this.username.setText("USERNAME " + postListItem.getUserId());
             like.setText(String.valueOf("Likes "+postListItem.getPostLikes().size()));
             comment.setText(String.valueOf("Comments "+postListItem.getPostsComments().size()));
+            comment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    commentCommunicator.onClickOfButton(postListItem.getPostId());
+
+                }
+            });
 
             pd = new ProgressDialog(userDp.getContext());
             pd.setMessage("Buffering video please wait...");

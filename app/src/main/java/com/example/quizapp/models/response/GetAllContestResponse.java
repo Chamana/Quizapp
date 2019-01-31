@@ -1,5 +1,6 @@
 package com.example.quizapp.models.response;
 
+
 import com.example.quizapp.models.response.contestDetails.ResponseItem;
 import com.google.gson.annotations.SerializedName;
 

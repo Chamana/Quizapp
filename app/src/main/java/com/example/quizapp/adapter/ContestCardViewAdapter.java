@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.example.quizapp.Holder.ContestCardViewHolder;
 import com.example.quizapp.Icommunicator;
 import com.example.quizapp.R;
-import com.example.quizapp.models.response.ResponseItem;
+import com.example.quizapp.models.response.contestDetails.ResponseItem;
 
 import java.util.ArrayList;
 import java.util.List;

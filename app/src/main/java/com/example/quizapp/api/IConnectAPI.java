@@ -70,7 +70,7 @@ public interface IConnectAPI {
 
     @GET("/getReport/leaderboard")
     public Call<List<OverallLeaderboardResponse>> getLeaderboard();
-}
+
 
     @GET("/contests/{contestId}/play/question/{questionId}/winner")
     public Call<GetQuestionWinner> getQuestionWinner(@Path(value = "contestId") String contestId, @Path(value = "questionId") String questionId);

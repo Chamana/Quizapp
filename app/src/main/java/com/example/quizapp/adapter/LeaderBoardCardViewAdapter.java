@@ -17,12 +17,13 @@ import java.util.List;
 public class LeaderBoardCardViewAdapter extends RecyclerView.Adapter {
     private ArrayList<String> images;
     private List<OverallLeaderboardResponse> nameList;
-    private int []rank=new int[3];
+    private int []rank;
 
 
     public LeaderBoardCardViewAdapter(List<OverallLeaderboardResponse> nameList, ArrayList images) {
         this.images = images;
         this.nameList = nameList;
+        rank=new int[nameList.size()];
         Log.e("namelist",nameList.toString());
         for(int i=1;i<=nameList.size();i++)
             rank[i-1]=i;

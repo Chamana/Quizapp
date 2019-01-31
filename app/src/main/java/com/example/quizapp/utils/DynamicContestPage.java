@@ -19,6 +19,7 @@ import android.widget.VideoView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.quizapp.R;
+import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.models.DynamicQuestionDTO;
 import com.example.quizapp.models.request.dynamicSubmitRequest.Request;
@@ -60,7 +61,7 @@ public class DynamicContestPage extends AppCompatActivity {
     String contestId="dbbfb173-f399-4619-93ad-448066cf6e99";
     IConnectAPI iConnectAPI;
     DynamicQuestionDTO dynamicQuestionDTO;
-    String userId="hussain";
+    String userId="Nitin";
     Button b_submit_contest;
     TextView tv_winner;
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.quizapp.ContestPage;
 import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
@@ -76,8 +77,7 @@ public class StartContestActivity extends AppCompatActivity {
                         subscribeButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
-                                //Toast.makeText(StartContestActivity.this, "Start" ,Toast.LENGTH_SHORT ).show();
+                                startActivity(new Intent(StartContestActivity.this, ContestPage.class));
 
                             }
                         });
@@ -97,8 +97,7 @@ public class StartContestActivity extends AppCompatActivity {
                                                 subscribeButton.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View v) {
-                                                        Toast.makeText(StartContestActivity.this, "Start", Toast.LENGTH_SHORT).show();
-                                                        //startActivity(new Intent(StartContestActivity.this , ContestPage.class));
+                                                        startActivity(new Intent(StartContestActivity.this , ContestPage.class));
 
                                                     }
                                                 });

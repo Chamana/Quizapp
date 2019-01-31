@@ -3,6 +3,9 @@ package com.example.quizapp.api;
 import com.example.quizapp.models.request.PutSkippedQuestion;
 import com.example.quizapp.models.request.PutSubmitQuestion;
 import com.example.quizapp.models.request.SubmitQuesBody;
+import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitContest;
+import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitQuestion;
+import com.example.quizapp.models.response.DynamicResponse;
 import com.example.quizapp.models.response.GetContestQuestion;
 import com.example.quizapp.models.response.GetContestQuestionBody;
 import com.example.quizapp.models.response.GetSkippedQuestion;
@@ -40,4 +43,9 @@ public interface IConnectAPI {
     @POST("/contests/{contestId}/play/submit")
     public Call<SubmitQuesResponse> submitContest(@Path(value = "contestId")String contestId, @Body GetContestQuestionBody getContestQuestionBody);
 
+    @POST("/contests/{contestId}/play/submit")
+    public Call<DynamicResponse> submitDynamicQuestion(@Path(value = "contestId") String contestId, @Body SubmitQuestion submitQuestion);
+
+    @POST("/contests/{contestId}/play/finish")
+    public Call<DynamicResponse> submitDynamicContest(@Path(value = "contestId") String contestId,@Body SubmitContest submitContest);
 }

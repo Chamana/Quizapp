@@ -1,0 +1,86 @@
+{
+  "project_info": {
+    "project_number": "497865863914",
+    "firebase_url": "https://notification-6bc99.firebaseio.com",
+    "project_id": "notification-6bc99",
+    "storage_bucket": "notification-6bc99.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497865863914:android:9d0ee71c398365ce",
+        "android_client_info": {
+          "package_name": "com.example.quizapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497865863914-8f4o4b4dhlosqgdaa4gkivlska84ctsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG1Ldqe_F9mbrdls_bJ5AiZOUSM61wPdw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497865863914:android:6e0977ec6656fdf2",
+        "android_client_info": {
+          "package_name": "com.suchhanda.demonotificationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497865863914-oi1olq2reh2ta29a80ptb70d17448pbj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.suchhanda.demonotificationapp",
+            "certificate_hash": "622103d2697efd3ac0d9136dd76737ce394ca333"
+          }
+        },
+        {
+          "client_id": "497865863914-8f4o4b4dhlosqgdaa4gkivlska84ctsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDG1Ldqe_F9mbrdls_bJ5AiZOUSM61wPdw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497865863914-8f4o4b4dhlosqgdaa4gkivlska84ctsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

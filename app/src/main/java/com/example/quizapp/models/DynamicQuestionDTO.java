@@ -1,7 +1,7 @@
 package com.example.quizapp.models;
 
 
-import com.example.quizapp.models.response.OptionDTOListItem;
+import com.example.quizapp.models.Response.OptionDTOListItem;
 
 import java.util.List;
 

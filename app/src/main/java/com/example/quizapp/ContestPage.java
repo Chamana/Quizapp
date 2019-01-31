@@ -26,12 +26,12 @@ import com.example.quizapp.models.request.PutSkippedQuestion;
 import com.example.quizapp.models.request.PutSubmitQuestion;
 import com.example.quizapp.models.request.Request;
 import com.example.quizapp.models.request.SubmitQuesBody;
-import com.example.quizapp.models.response.GetContestQuestion;
-import com.example.quizapp.models.response.GetContestQuestionBody;
+import com.example.quizapp.models.Response.GetContestQuestion;
+import com.example.quizapp.models.Response.GetContestQuestionBody;
 import com.example.quizapp.models.Question;
-import com.example.quizapp.models.response.GetSkippedQuestion;
-import com.example.quizapp.models.response.OptionDTOListItem;
-import com.example.quizapp.models.response.SubmitQuesResponse;
+import com.example.quizapp.models.Response.GetSkippedQuestion;
+import com.example.quizapp.models.Response.OptionDTOListItem;
+import com.example.quizapp.models.Response.SubmitQuesResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;

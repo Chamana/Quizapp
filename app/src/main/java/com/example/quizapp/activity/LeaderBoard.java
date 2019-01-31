@@ -7,13 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.example.quizapp.R;
-import com.example.quizapp.adapter.ContestCardViewAdapter;
 import com.example.quizapp.adapter.LeaderBoardCardViewAdapter;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
-import com.example.quizapp.fragment.ContestFragment;
-import com.example.quizapp.models.response.GetAllContestResponse;
-import com.example.quizapp.models.response.OverallLeaderboardResponse;
+import com.example.quizapp.models.Response.OverallLeaderboardResponse;
 
 import java.util.ArrayList;
 import java.util.Arrays;

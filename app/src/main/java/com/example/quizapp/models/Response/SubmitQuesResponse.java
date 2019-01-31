@@ -1,23 +1,15 @@
-package com.example.quizapp.models.response;
+package com.example.quizapp.models.Response;
 
-import com.google.gson.annotations.SerializedName;
-
-public class GetSkippedQuestion{
-
-	@SerializedName("response")
-	private QuesResponse response;
-
-	@SerializedName("errorMessage")
+public class SubmitQuesResponse{
+	private SubmitResponse response;
 	private String errorMessage;
-
-	@SerializedName("status")
 	private String status;
 
-	public void setQuesResponse(QuesResponse quesResponse){
-		this.response = quesResponse;
+	public void setSubmitResponse(SubmitResponse submitResponse){
+		this.response = submitResponse;
 	}
 
-	public QuesResponse getQuesResponse(){
+	public SubmitResponse getSubmitResponse(){
 		return response;
 	}
 
@@ -40,8 +32,8 @@ public class GetSkippedQuestion{
 	@Override
  	public String toString(){
 		return 
-			"GetSkippedQuestion{" + 
-			"quesResponse = '" + response + '\'' +
+			"SubmitQuesResponse{" + 
+			"submitResponse = '" + response + '\'' +
 			",errorMessage = '" + errorMessage + '\'' + 
 			",status = '" + status + '\'' + 
 			"}";

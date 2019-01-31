@@ -1,6 +1,6 @@
 package com.example.quizapp.api;
 
-import com.example.quizapp.models.Response.GetAllContestResponse;
+import com.example.quizapp.models.response.GetAllContestResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

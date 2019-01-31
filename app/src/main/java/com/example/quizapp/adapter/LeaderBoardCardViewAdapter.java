@@ -2,21 +2,30 @@ package com.example.quizapp.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.quizapp.Holder.LeaderBoardCardViewHolder;
 import com.example.quizapp.R;
+import com.example.quizapp.models.response.OverallLeaderboardResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class LeaderBoardCardViewAdapter extends RecyclerView.Adapter {
-    private ArrayList<String> images, nameList;
+    private ArrayList<String> images;
+    private List<OverallLeaderboardResponse> nameList;
+    private int []rank=new int[3];
 
-    public LeaderBoardCardViewAdapter(ArrayList nameList, ArrayList images) {
+
+    public LeaderBoardCardViewAdapter(List<OverallLeaderboardResponse> nameList, ArrayList images) {
         this.images = images;
         this.nameList = nameList;
+        Log.e("namelist",nameList.toString());
+        for(int i=1;i<=nameList.size();i++)
+            rank[i-1]=i;
     }
 
     @NonNull
@@ -28,7 +37,7 @@ public class LeaderBoardCardViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((LeaderBoardCardViewHolder) viewHolder).bind(nameList.get(i), nameList.get(i), nameList.get(i), images.get(i));
+        ((LeaderBoardCardViewHolder) viewHolder).bind(nameList.get(i).getUserName(),String.valueOf(rank[i]),String.valueOf(nameList.get(i).getScore()), images.get(i));
 
     }
 

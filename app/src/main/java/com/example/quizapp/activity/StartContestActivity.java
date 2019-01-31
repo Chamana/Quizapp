@@ -1,8 +1,9 @@
 package com.example.quizapp.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -83,7 +84,7 @@ public class StartContestActivity extends AppCompatActivity {
                    {
 
                        subscribeButton.setText("Start");
-                       subscribeButton.setCompoundDrawables(getResources().getDrawable( R.drawable.startcontest ), null,null,null);
+                       subscribeButton.setCompoundDrawablesWithIntrinsicBounds(ContextCompat.getDrawable(StartContestActivity.this, R.drawable.startcontest), null, null, null);
                    }
                    else
                    {

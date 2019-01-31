@@ -1,4 +1,4 @@
-package com.example.quizapp.models.response;
+package com.example.quizapp.models.Response;
 
 public class GetQuestionWinner{
 	private String response;

@@ -17,7 +17,7 @@ import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.models.request.SubscribeButtonRequest;
 import com.example.quizapp.models.request.UserGetAllContestRequest;
-import com.example.quizapp.models.response.contestDetails.GetContestDetailsResponse;
+import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;

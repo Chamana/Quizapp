@@ -1,5 +1,7 @@
-package com.example.quizapp.models.response;
+package com.example.quizapp.models.Response;
 
+
+import com.example.quizapp.models.Response.contestDetails.ResponseItem;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -23,7 +25,7 @@ public class GetAllContestResponse {
         this.status = status;
     }
 
-    public List<com.example.quizapp.models.response.ResponseItem> getResponse() {
+    public List<ResponseItem> getResponse() {
         return response;
     }
 

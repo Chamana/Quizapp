@@ -1,15 +1,15 @@
-package com.example.quizapp.models.response;
+package com.example.quizapp.models.Response;
 
-public class SubmitQuesResponse{
-	private SubmitResponse response;
+public class GetContestQuestion{
+	private QuesResponse response;
 	private String errorMessage;
 	private String status;
 
-	public void setSubmitResponse(SubmitResponse submitResponse){
-		this.response = submitResponse;
+	public void setQuesResponse(QuesResponse quesResponse){
+		this.response = quesResponse;
 	}
 
-	public SubmitResponse getSubmitResponse(){
+	public QuesResponse getQuesResponse(){
 		return response;
 	}
 
@@ -32,8 +32,8 @@ public class SubmitQuesResponse{
 	@Override
  	public String toString(){
 		return 
-			"SubmitQuesResponse{" + 
-			"submitResponse = '" + response + '\'' +
+			"GetContestQuestion{" + 
+			"quesResponse = '" + response + '\'' +
 			",errorMessage = '" + errorMessage + '\'' + 
 			",status = '" + status + '\'' + 
 			"}";

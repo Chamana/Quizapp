@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.example.quizapp.Holder.LeaderBoardCardViewHolder;
 import com.example.quizapp.R;
-import com.example.quizapp.models.response.OverallLeaderboardResponse;
+import com.example.quizapp.models.Response.OverallLeaderboardResponse;
 
 import java.util.ArrayList;
 import java.util.List;

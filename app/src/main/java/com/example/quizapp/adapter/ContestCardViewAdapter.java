@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.quizapp.Holder.ContestCardViewHolder;
+import com.example.quizapp.Icommunicator;
 import com.example.quizapp.R;
 import com.example.quizapp.models.response.ResponseItem;
 
@@ -15,13 +16,17 @@ import java.util.List;
 
 public class ContestCardViewAdapter extends RecyclerView.Adapter {
 
+    Icommunicator icommunicator;
     private ArrayList<String> images;
-    private List<ResponseItem> contestNameList;
+    private List<ResponseItem> contestNameList = new ArrayList<>();
     private String contestId;
-    public ContestCardViewAdapter(List<ResponseItem> contestNameList,ArrayList images){
-        this.images=images;
-        this.contestNameList=contestNameList;
+
+    public ContestCardViewAdapter(List<ResponseItem> contestNameList, ArrayList images, Icommunicator icommunicator) {
+        this.images = images;
+        this.contestNameList = contestNameList;
+        this.icommunicator = icommunicator;
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -31,12 +36,12 @@ public class ContestCardViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        ((ContestCardViewHolder) viewHolder).bind(contestNameList.get(i).getName(),contestNameList.get(i).getCategoryId(), contestNameList.get(i).getContestId(), images.get(i));
+        ((ContestCardViewHolder) viewHolder).bind(contestNameList.get(i).getName(), contestNameList.get(i).getCategoryId(), contestNameList.get(i).getContestId(), images.get(i), icommunicator);
 
     }
 
     @Override
     public int getItemCount() {
-        return contestNameList.size();
+        return images.size();
     }
 }

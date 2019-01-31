@@ -1,50 +1,52 @@
 package com.example.quizapp.models.response;
 
-import java.util.List;
+import com.example.quizapp.models.response.contestDetails.ResponseItem;
 import com.google.gson.annotations.SerializedName;
 
-public class GetAllContestResponse{
+import java.util.List;
 
-	@SerializedName("status")
-	private String status;
+public class GetAllContestResponse {
 
-	@SerializedName("response")
-	private List<ResponseItem> response;
+    @SerializedName("status")
+    private String status;
 
-	@SerializedName("errorMessage")
-	private String errorMessage;
+    @SerializedName("response")
+    private List<ResponseItem> response;
 
-	public void setStatus(String status){
-		this.status = status;
-	}
+    @SerializedName("errorMessage")
+    private String errorMessage;
 
-	public String getStatus(){
-		return status;
-	}
+    public String getStatus() {
+        return status;
+    }
 
-	public void setResponse(List<ResponseItem> response){
-		this.response = response;
-	}
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-	public List<ResponseItem> getResponse(){
-		return response;
-	}
+    public List<ResponseItem> getResponse() {
+        return response;
+    }
 
-	public void setErrorMessage(String errorMessage){
-		this.errorMessage = errorMessage;
-	}
+    public void setResponse(List<ResponseItem> response) {
+        this.response = response;
+    }
 
-	public String getErrorMessage(){
-		return errorMessage;
-	}
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 
-	@Override
- 	public String toString(){
-		return 
-			"GetAllContestResponse{" +
-			"“status” = '" + status + '\'' + 
-			",“response” = '" + response + '\'' + 
-			",“errorMessage” = '" + errorMessage + '\'' + 
-			"}";
-		}
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    @Override
+    public String toString() {
+        return
+                "GetAllContestResponse{" +
+                        "“status” = '" + status + '\'' +
+                        ",“response” = '" + response + '\'' +
+                        ",“errorMessage” = '" + errorMessage + '\'' +
+                        "}";
+    }
 }

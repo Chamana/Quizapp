@@ -11,4 +11,6 @@
     <color name="cardBackground">#EEEEEE</color>
     <color name="black">#000000</color>
     <color name="purple">#6C63C0</color>
+    <color name="grey">#EEEEEE</color>
+
 </resources>

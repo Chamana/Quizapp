@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.fragment.ContestFragment;
+import com.example.quizapp.fragment.FeedPageFragment;
 import com.example.quizapp.fragment.SocialMediaFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity
                         fragment = new ContestFragment();
                         break;
                     case 1:
-                        fragment = new SocialMediaFragment();
+                        fragment = new FeedPageFragment();
                         break;
 
                 }
@@ -144,7 +145,7 @@ public class MainActivity extends AppCompatActivity
             fragment = new ContestFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
         } else if (id == R.id.nav_social_media) {
-            fragment = new SocialMediaFragment();
+            fragment = new FeedPageFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
 
         } else if (id == R.id.nav_leader_board) {

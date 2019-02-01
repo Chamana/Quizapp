@@ -12,6 +12,10 @@
             android:icon="@drawable/contest"
             android:title="Contest" />
         <item
+            android:id="@+id/nav_dynamic_contest"
+            android:icon="@drawable/contest"
+            android:title="Dynamic Contest" />
+        <item
             android:id="@+id/nav_leader_board"
             android:icon="@drawable/leaderboard"
             android:title="Leader Board" />

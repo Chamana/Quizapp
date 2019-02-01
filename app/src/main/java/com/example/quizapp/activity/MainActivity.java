@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -22,18 +23,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
+import com.example.quizapp.api.AppController;
+import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.fragment.ContestFragment;
 import com.example.quizapp.fragment.FeedPageFragment;
 import com.example.quizapp.fragment.SocialMediaFragment;
+import com.example.quizapp.models.Response.dynamicContest.DynamicContestResponse;
+import com.example.quizapp.utils.DynamicContestPage;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TabLayout tabLayout;
     private Fragment fragment = null;
+    IConnectAPI iConnectAPI;
 
     @SuppressLint("ResourceType")
     @Override
@@ -49,14 +60,16 @@ public class MainActivity extends AppCompatActivity
         contest.setIcon(R.drawable.contest);
         tabLayout.addTab(contest, true);
 
+        iConnectAPI = AppController.dynamic_contest_retrofit.create(IConnectAPI.class);
+
         TabLayout.Tab socialMedia = tabLayout.newTab();
         socialMedia.setText("Social Media");
         socialMedia.setIcon(R.drawable.socialmedia);
         tabLayout.addTab(socialMedia);
 
-        if(!AppController.sharedPreferences.getBoolean("isInterestSet",false)){
-            startActivity(new Intent(MainActivity.this,InterestActivity.class));
-        }
+//        if(!AppController.sharedPreferences.getBoolean("isInterestSet",false)){
+//            startActivity(new Intent(MainActivity.this,InterestActivity.class));
+//        }
 
         if (savedInstanceState == null) {
             fragment = new ContestFragment();
@@ -144,6 +157,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_contest) {
             fragment = new ContestFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
+        }else if(id == R.id.nav_dynamic_contest){
+            Toast.makeText(this, "Dynamic Contest", Toast.LENGTH_SHORT).show();
+            checkDynamicContest();
         } else if (id == R.id.nav_social_media) {
             fragment = new FeedPageFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
@@ -162,5 +178,26 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void checkDynamicContest() {
+        Toast.makeText(this, "Dynamic Contest ()", Toast.LENGTH_SHORT).show();
+        iConnectAPI.dynamicContestResponse().enqueue(new Callback<DynamicContestResponse>() {
+            @Override
+            public void onResponse(Call<DynamicContestResponse> call, Response<DynamicContestResponse> response) {
+                Log.d("DYNAMIC_ACTIVE_CONTEST",response.body().toString());
+                if(response.body().getStatus().equals("success"))
+                {
+                    Intent intent=new Intent(MainActivity.this, DynamicContestPage.class);
+                    intent.putExtra("contestId",response.body().getResponse().getContestId());
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DynamicContestResponse> call, Throwable t) {
+                Log.d("DYNAMIC_ACTIVE_fail",t.getMessage());
+            }
+        });
     }
 }

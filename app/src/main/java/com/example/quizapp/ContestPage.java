@@ -1,6 +1,7 @@
 package com.example.quizapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.quizapp.activity.EndContestActivity;
+import com.example.quizapp.activity.StartContestActivity;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.models.ContestSubmit;
@@ -69,13 +72,20 @@ public class ContestPage extends AppCompatActivity {
     GetContestQuestionBody getContestQuestionBody;
     ContestSubmit contestSubmit;
     String ans;
+    String userId;
+    String contestId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contest_page);
         //setSupportActionBar((Toolbar) findViewById(R.id.my_toolbar));
-
+        userId = AppController.sharedPreferences.getString("userId","No user from android");
+        contestId = getIntent().getStringExtra("contestId");
+        if(contestId==null){
+            Toast.makeText(this, "THIS IS APP ERROR --> NOT BACKEND!!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         ques_iv = findViewById(R.id.ques_iv);
         ques_vv = findViewById(R.id.ques_vv);
         ques_tv = findViewById(R.id.ques_tv);
@@ -94,7 +104,7 @@ public class ContestPage extends AppCompatActivity {
 
         iConnectAPI = AppController.static_contest_retrofit.create(IConnectAPI.class);
 
-        getContestQuestionBody = new GetContestQuestionBody("android");
+        getContestQuestionBody = new GetContestQuestionBody(userId);
 
         //nextQues(iConnectAPI)
         ;
@@ -179,7 +189,7 @@ public class ContestPage extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Exit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                finish();
                 Toast.makeText(ContestPage.this, "Exit", Toast.LENGTH_SHORT).show();
             }
         });
@@ -200,7 +210,7 @@ public class ContestPage extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Exit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                finish();
                 Toast.makeText(ContestPage.this, "Exit", Toast.LENGTH_SHORT).show();
             }
         });
@@ -231,7 +241,7 @@ public class ContestPage extends AppCompatActivity {
     }
 
     public void submitContest(final IConnectAPI iConnectAPI) {
-        iConnectAPI.submitContest("45d42091-b602-47a7-9c91-dae9e3b69488", getContestQuestionBody).enqueue(new Callback<SubmitQuesResponse>() {
+        iConnectAPI.submitContest(contestId, getContestQuestionBody).enqueue(new Callback<SubmitQuesResponse>() {
             @Override
             public void onResponse(Call<SubmitQuesResponse> call, Response<SubmitQuesResponse> response) {
                 Log.d("SUBMIT RESPONSE: ", response.body().toString());
@@ -250,6 +260,10 @@ public class ContestPage extends AppCompatActivity {
                     contestSubmit.setScore(response.body().getSubmitResponse().getScore());
                     contestSubmit.setUserId(response.body().getSubmitResponse().getUserId());
                     contestSubmit.setStatus(response.body().getStatus());
+
+                    Intent intent=new Intent(ContestPage.this, EndContestActivity.class);
+                    intent.putExtra("contestId",contestSubmit.getContestId());
+                    startActivity(intent);
                 }
             }
 
@@ -263,7 +277,7 @@ public class ContestPage extends AppCompatActivity {
     public void nextQues(final IConnectAPI iConnectAPI) {
 
 
-        iConnectAPI.getContestQuestion("45d42091-b602-47a7-9c91-dae9e3b69488", getContestQuestionBody).enqueue(new Callback<GetContestQuestion>() {
+        iConnectAPI.getContestQuestion(contestId, getContestQuestionBody).enqueue(new Callback<GetContestQuestion>() {
             @Override
             public void onResponse(Call<GetContestQuestion> call, Response<GetContestQuestion> response) {
                 Log.d("PLAY_AREA: ", response.body().toString());
@@ -319,10 +333,10 @@ public class ContestPage extends AppCompatActivity {
         String optionIds = getSelectedOptions();
         Log.d("OPTION_SUBMIT", optionIds);
         Request request = new Request(question.getQuesId(), 1, optionIds);
-        SubmitQuesBody submitQuesBody = new SubmitQuesBody(request, "android");
+        SubmitQuesBody submitQuesBody = new SubmitQuesBody(request, userId);
         System.out.println(submitQuesBody);
 
-        Call<PutSubmitQuestion> call = iConnectAPI.putSubmitQuestion("45d42091-b602-47a7-9c91-dae9e3b69488", "" + question.getQuesId(), submitQuesBody);
+        Call<PutSubmitQuestion> call = iConnectAPI.putSubmitQuestion(contestId, "" + question.getQuesId(), submitQuesBody);
         call.enqueue(new Callback<PutSubmitQuestion>() {
             @Override
             public void onResponse(Call<PutSubmitQuestion> call, Response<PutSubmitQuestion> response) {
@@ -364,7 +378,7 @@ public class ContestPage extends AppCompatActivity {
     }
 
     public void skip() {
-        iConnectAPI.putSkippedQuestion("45d42091-b602-47a7-9c91-dae9e3b69488", "" + question.getQuesId(), getContestQuestionBody).enqueue(new Callback<PutSkippedQuestion>() {
+        iConnectAPI.putSkippedQuestion(contestId, "" + question.getQuesId(), getContestQuestionBody).enqueue(new Callback<PutSkippedQuestion>() {
             @Override
             public void onResponse(Call<PutSkippedQuestion> call, Response<PutSkippedQuestion> response) {
                 Log.d("SKIPPED", response.body().toString());
@@ -385,7 +399,7 @@ public class ContestPage extends AppCompatActivity {
 
     public void skippedQues(final IConnectAPI iConnectAPI) {
         Log.d("SKIP", "skipQscalled()");
-        iConnectAPI.getSkippedQuestion("45d42091-b602-47a7-9c91-dae9e3b69488", getContestQuestionBody).enqueue(new Callback<GetSkippedQuestion>() {
+        iConnectAPI.getSkippedQuestion(contestId, getContestQuestionBody).enqueue(new Callback<GetSkippedQuestion>() {
             @Override
             public void onResponse(Call<GetSkippedQuestion> call, Response<GetSkippedQuestion> response) {
                 Log.d("SKIP", response.body().toString());
@@ -471,14 +485,14 @@ public class ContestPage extends AppCompatActivity {
 
         }
 
-        try {
             cb1.setText(question.getOptionContent().get(0));
             cb2.setText(question.getOptionContent().get(1));
             cb3.setText(question.getOptionContent().get(2));
+            if(question.getQuesContent().length()>3)
             cb4.setText(question.getOptionContent().get(3));
-        } catch (Exception e) {
-            Log.e("Option error", e.getMessage());
-        }
+            else
+                cb4.setVisibility(View.GONE);
+
         if (question.getQuesContent().length() == 5)
             cb5.setText(question.getOptionContent().get(4));
         else

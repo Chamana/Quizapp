@@ -11,6 +11,10 @@ import com.example.quizapp.models.Response.GetContestQuestion;
 import com.example.quizapp.models.Response.GetContestQuestionBody;
 import com.example.quizapp.models.Response.GetQuestionWinner;
 import com.example.quizapp.models.Response.GetSkippedQuestion;
+import com.example.quizapp.models.Response.dynamicContest.DynamicContestResponse;
+import com.example.quizapp.models.request.LoginRequest;
+import com.example.quizapp.models.request.SignupRequest;
+import com.example.quizapp.models.request.UpdateProfileRequest;
 import com.example.quizapp.models.Response.InterestListResponse;
 import com.example.quizapp.models.Response.LoginResponse;
 import com.example.quizapp.models.Response.NotificationTokenResponse;
@@ -152,11 +156,13 @@ public interface IConnectAPI {
     @GET("/getReport/leaderboard")
     public Call<List<OverallLeaderboardResponse>> getLeaderboard();
 
-
     @GET("/contests/{contestId}/play/question/{questionId}/winner")
     public Call<GetQuestionWinner> getQuestionWinner(@Path(value = "contestId") String contestId, @Path(value = "questionId") String questionId);
 
     @GET("/advertisement/bulk/{userId}/{count}")
     public Call<AdvertisementResponse> getAdvertisements(@Path("userId") String userId, @Path("count") Integer count);
+
+    @GET("/contests/active")
+    public Call<DynamicContestResponse> dynamicContestResponse();
 
 }

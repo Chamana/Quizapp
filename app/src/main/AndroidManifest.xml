@@ -21,7 +21,21 @@
         tools:targetApi="m"
         android:largeHeap="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activity.EndContestActivity"
+            android:screenOrientation="portrait">
 
+        </activity>
+        <activity android:name=".activity.StartContestActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+
+        <activity android:name=".utils.DynamicContestPage"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".activity.SplashScreenActivity"
             android:label="@string/app_name"

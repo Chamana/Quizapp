@@ -15,10 +15,10 @@ public class AppController extends Application {
     public static Retrofit auth_retrofit=null;
     public static Retrofit posts_retrofit=null;
     public static Retrofit user_profile_retrofit=null;
-    public static Retrofit storage_retrofit=null;
     public static Retrofit static_contest_retrofit=null;
     public static Retrofit dynamic_contest_retrofit=null;
-
+    public static Retrofit notification_retrofit=null;
+    public static Retrofit interest=null;
 
     public OkHttpClient okHttpClient = new OkHttpClient.Builder().build();
     public static SharedPreferences sharedPreferences;
@@ -50,6 +50,13 @@ public class AppController extends Application {
                     .client(okHttpClient)
                     .build();
         }
+        if(null == interest){
+            interest=new Retrofit.Builder()
+                    .baseUrl("http://10.177.7.131:8080")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
+        }
 
         if(null==static_contest_retrofit){
             static_contest_retrofit=new Retrofit.Builder()
@@ -62,6 +69,14 @@ public class AppController extends Application {
         if(null==dynamic_contest_retrofit){
             dynamic_contest_retrofit=new Retrofit.Builder()
                     .baseUrl("http://10.177.7.115:8080")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
+        }
+
+        if(null==notification_retrofit){
+            notification_retrofit=new Retrofit.Builder()
+                    .baseUrl("http://10.177.7.144:8085")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build();

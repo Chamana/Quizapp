@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
@@ -48,7 +49,7 @@ public class DynamicContestPage extends AppCompatActivity {
     TextView ques_text;
     CheckBox cb1,cb2,cb3,cb4,cb5;
     Button b_submit_ques;
-    long timer_halt=10000;
+    long timer_halt=60000;
     long timer_ques;
     boolean run_ques=false;
     boolean run_halt=false;
@@ -58,17 +59,36 @@ public class DynamicContestPage extends AppCompatActivity {
     Integer currentQuestion = 1;
     TextView tv_halt_timer;
     TextView tv_ques_timer;
-    String contestId="dbbfb173-f399-4619-93ad-448066cf6e99";
+//    String contestId="dbbfb173-f399-4619-93ad-448066cf6e99";
+    String contestId = null ;
     IConnectAPI iConnectAPI;
     DynamicQuestionDTO dynamicQuestionDTO;
     String userId="Nitin";
-    Button b_submit_contest;
+    //Button b_submit_contest;
     TextView tv_winner;
+    MediaPlayer dynamicCountdownPlayer;
+    MediaPlayer dynamicSleepingPlayer;
+    MediaPlayer questionAudioPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_contest_page);
+
+        contestId = getIntent().getStringExtra("contestId");
+        if(contestId == null){
+            Toast.makeText(this, "App Error: Couldn't get contestId \n Exiting Dynamic Contest"  , Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        dynamicCountdownPlayer = MediaPlayer.create(this,R.raw.dynamic_countdown_sound);
+        dynamicCountdownPlayer.setLooping(true);
+
+        dynamicSleepingPlayer= MediaPlayer.create(this,R.raw.dynamic_snoring_sound);
+        dynamicSleepingPlayer.setLooping(true);
+
+
+        questionAudioPlayer = new MediaPlayer();
+        questionAudioPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         ques_iv=findViewById(R.id.ques_iv);
         ques_vv=findViewById(R.id.ques_vv);
@@ -84,7 +104,7 @@ public class DynamicContestPage extends AppCompatActivity {
         b_submit_ques =findViewById(R.id.submit);
         ques=findViewById(R.id.ques_view);
         halt=findViewById(R.id.halt_view);
-        b_submit_contest =findViewById(R.id.b_submit);
+        //b_submit_contest =findViewById(R.id.b_submit);
         tv_winner=findViewById(R.id.tv_winner);
 
         iConnectAPI= AppController.dynamic_contest_retrofit.create(IConnectAPI.class);
@@ -99,16 +119,18 @@ public class DynamicContestPage extends AppCompatActivity {
             }
         });
 
-        b_submit_contest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submitContest();
-            }
-        });
+//        b_submit_contest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
         currentQuestionListener();
 //        getQuestionFromFirebase(currentQuestion);
 
     }
+
+
 
     private void submitContest() {
         SubmitContest submitContest=new SubmitContest("",userId);
@@ -116,6 +138,7 @@ public class DynamicContestPage extends AppCompatActivity {
             @Override
             public void onResponse(Call<DynamicResponse> call, Response<DynamicResponse> response) {
                 Log.d("Contest Submit : ",response.body().toString());
+                finish();
             }
 
             @Override
@@ -153,9 +176,17 @@ public class DynamicContestPage extends AppCompatActivity {
         iConnectAPI.submitDynamicQuestion(contestId,submitQuestion).enqueue(new Callback<DynamicResponse>() {
             @Override
             public void onResponse(Call<DynamicResponse> call, Response<DynamicResponse> response) {
+
+                Log.d("Submit ques: ",response.body().toString());
                 if(response.body().getStatus().equals("success")) {
                     b_submit_ques.setVisibility(View.GONE);
                     showSnackBar("Your answer is submitted");
+                }
+                else if(response.body().getResponse().equals("Already answered"))
+                {
+
+                    b_submit_ques.setVisibility(View.GONE);
+                    showSnackBar("Already Answered");
                 }
                 //Log.d("Submit Dynamic : ",response.body().toString());
             }
@@ -188,6 +219,7 @@ public class DynamicContestPage extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         try {
+            tv_winner.setText("Contest is Starting");
             startStopHalt();
         } catch (IOException e) {
             e.printStackTrace();
@@ -226,14 +258,18 @@ public class DynamicContestPage extends AppCompatActivity {
         if(null==dynamicQuestionDTO)
         {
 
+            questionAudioPlayer.stop();
             ques.setVisibility(View.GONE);
             halt.setVisibility(View.VISIBLE);
 
             stopQuesTimer();
+
+
         }
         else
         {
-
+            dynamicCountdownPlayer.pause();
+            dynamicSleepingPlayer.pause();
             halt.setVisibility(View.GONE);
             ques.setVisibility(View.VISIBLE);
             b_submit_ques.setVisibility(View.VISIBLE);
@@ -284,11 +320,9 @@ public class DynamicContestPage extends AppCompatActivity {
                 ques_tv.setText("Listen to audio...");
                 Uri myUri = Uri.parse(dynamicQuestionDTO.getQuestionContent());
 
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                mediaPlayer.setDataSource(getApplicationContext(), myUri);
-                mediaPlayer.prepare();
-                mediaPlayer.start();
+                questionAudioPlayer.setDataSource(getApplicationContext(), myUri);
+                questionAudioPlayer.prepare();
+                questionAudioPlayer.start();
 
             }
 
@@ -341,17 +375,20 @@ public class DynamicContestPage extends AppCompatActivity {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    b_submit_contest.setVisibility(View.VISIBLE);
+                    //b_submit_contest.setVisibility(View.VISIBLE);
+                    submitContest();
                 }
                 else {
                     timer_halt = 10000;
                     try {
                         startStopHalt();
+                        updateUI(null);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    ques.setVisibility(View.GONE);
-                    halt.setVisibility(View.VISIBLE);
+//                    ques.setVisibility(View.GONE);
+//                    halt.setVisibility(View.VISIBLE);
+
                     getWinnerQuestion();
                 }
             }
@@ -377,7 +414,9 @@ public class DynamicContestPage extends AppCompatActivity {
         });
     }
 
-    public void startHaltTimer(){
+    public void startHaltTimer() throws IOException {
+
+        dynamicCountdownPlayer.start();
 
         countDownTimerHalt = new CountDownTimer(timer_halt,1000) {
             @Override
@@ -388,8 +427,12 @@ public class DynamicContestPage extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                tv_halt_timer.setText("Admin is sleeping..."+(new String(Character.toChars(0x1F634))));
+
+                dynamicCountdownPlayer.pause();
                 updateCurrentQuestion();
+
+                dynamicSleepingPlayer.start();
+                tv_halt_timer.setText("Admin is sleeping..."+(new String(Character.toChars(0x1F634))));
             }
         }.start();
 

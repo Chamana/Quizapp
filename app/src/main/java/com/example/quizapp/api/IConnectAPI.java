@@ -1,5 +1,6 @@
 package com.example.quizapp.api;
 
+import com.example.quizapp.models.Response.dynamicContest.DynamicContestResponse;
 import com.example.quizapp.models.request.PutSkippedQuestion;
 import com.example.quizapp.models.request.PutSubmitQuestion;
 import com.example.quizapp.models.request.SubmitQuesBody;
@@ -66,8 +67,10 @@ public interface IConnectAPI {
     @GET("/getReport/leaderboard")
     public Call<List<OverallLeaderboardResponse>> getLeaderboard();
 
-
     @GET("/contests/{contestId}/play/question/{questionId}/winner")
     public Call<GetQuestionWinner> getQuestionWinner(@Path(value = "contestId") String contestId, @Path(value = "questionId") String questionId);
+
+    @GET("/contests/active")
+    public Call<DynamicContestResponse> dynamicContestResponse();
 
 }

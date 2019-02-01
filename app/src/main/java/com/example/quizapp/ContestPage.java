@@ -1,6 +1,7 @@
 package com.example.quizapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.widget.VideoView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.quizapp.activity.EndContestActivity;
+import com.example.quizapp.activity.StartContestActivity;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
 import com.example.quizapp.models.ContestSubmit;
@@ -179,7 +182,7 @@ public class ContestPage extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Exit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                finish();
                 Toast.makeText(ContestPage.this, "Exit", Toast.LENGTH_SHORT).show();
             }
         });
@@ -200,7 +203,7 @@ public class ContestPage extends AppCompatActivity {
         alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Exit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                finish();
                 Toast.makeText(ContestPage.this, "Exit", Toast.LENGTH_SHORT).show();
             }
         });
@@ -250,6 +253,10 @@ public class ContestPage extends AppCompatActivity {
                     contestSubmit.setScore(response.body().getSubmitResponse().getScore());
                     contestSubmit.setUserId(response.body().getSubmitResponse().getUserId());
                     contestSubmit.setStatus(response.body().getStatus());
+
+                    Intent intent=new Intent(ContestPage.this, EndContestActivity.class);
+                    intent.putExtra("contestId",contestSubmit.getContestId());
+                    startActivity(intent);
                 }
             }
 

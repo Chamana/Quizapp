@@ -15,9 +15,11 @@ import com.example.quizapp.ContestPage;
 import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
+import com.example.quizapp.models.request.Contest;
 import com.example.quizapp.models.request.SubscribeButtonRequest;
 import com.example.quizapp.models.request.UserGetAllContestRequest;
 import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
+import com.example.quizapp.utils.DynamicContestPage;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,7 +99,10 @@ public class StartContestActivity extends AppCompatActivity {
                                                 subscribeButton.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View v) {
-                                                        startActivity(new Intent(StartContestActivity.this , ContestPage.class));
+
+                                                        Intent intent=new Intent(StartContestActivity.this, ContestPage.class);
+                                                        intent.putExtra("contestId",contestId);
+                                                        startActivity(intent);
 
                                                     }
                                                 });

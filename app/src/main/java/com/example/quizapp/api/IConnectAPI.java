@@ -21,10 +21,10 @@ public interface IConnectAPI {
     @DELETE("/post/dislike/{postId}/{userId}")
     public Call<LikeDislikePost> postDislike(@Path("postId") String postId, @Path("userId") String userId);
 
-    @GET("/notification/{userId}")
-    public Call<NotificationResponse> getNotifications(@Path("userId") String userId);
+    @GET("/notification/{userId}/{pageNo}")
+    public Call<NotificationResponse> getNotifications(@Path("userId") String userId, @Path("pageNo") int pageNo);
 
-    @GET("/advertisement/bulk/{userId}{count}")
+    @GET("/advertisement/bulk/{userId}/{count}")
     public Call<AdvertisementResponse> getAdvertisements(@Path("userId") String userId, @Path("count") Integer count);
 
 }

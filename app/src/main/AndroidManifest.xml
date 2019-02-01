@@ -23,17 +23,19 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activity.CreatePostActivity"
+            android:name=".activity.SplashScreenActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <!--android:noHistory="true">-->
+            android:theme="@style/AppTheme.NoActionBar"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".activity.NotificationActivity"
+            android:parentActivityName=".activity.MainActivity"></activity>
+        <activity android:name=".activity.ScrollUser"></activity>
         <activity android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
@@ -58,16 +60,23 @@
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
 
+        <activity android:name=".activity.CreatePostActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".activity.SearchActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
         <activity
             android:name=".ContestPage"
             android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity android:name=".activity.ContestLeaderboardActivity"
+            android:parentActivityName=".activity.StartContestActivity"></activity>
         <activity
             android:name=".activity.LeaderBoard"
             android:label="Leader Board"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.NestedCommentActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
         <service android:name=".service.MyFirebaseInstanceService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

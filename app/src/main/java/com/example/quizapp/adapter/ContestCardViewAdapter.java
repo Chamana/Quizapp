@@ -42,6 +42,6 @@ public class ContestCardViewAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return images.size();
+        return contestNameList.size();
     }
 }

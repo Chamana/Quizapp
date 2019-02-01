@@ -159,23 +159,29 @@ public class InterestActivity extends AppCompatActivity implements InterestAdapt
 
     private void saveInterest(String interests) {
         IConnectAPI iConnectAPI=AppController.user_profile_retrofit.create(IConnectAPI.class);
-        UpdateProfileRequest updateProfileRequest=new UpdateProfileRequest(AppController.sharedPreferences.getString("userId",""),null,0,null,interests,null);
+        UpdateProfileRequest updateProfileRequest=new UpdateProfileRequest(AppController.sharedPreferences.getString("userId",""),null,0,AppController.sharedPreferences.getString("name",""),interests,null);
+
         Call<UpdateProfileResponse> updateProfileResponseCall=iConnectAPI.addInterestList(AppController.sharedPreferences.getString("userId",""),updateProfileRequest);
         progressBarUtility.displayProgress("Storing interests please wait.");
         updateProfileResponseCall.enqueue(new Callback<UpdateProfileResponse>() {
             @Override
             public void onResponse(Call<UpdateProfileResponse> call, Response<UpdateProfileResponse> response) {
-                if(response.body().isStatus()){
-                    progressBarUtility.cancelDialog();
-                    SharedPreferences.Editor editor=AppController.sharedPreferences.edit();
-                    editor.putBoolean("isInterestSet",true);
-                    editor.commit();
-                    finish();
-                    Toast.makeText(InterestActivity.this, "Interest saved sucessfully.", Toast.LENGTH_SHORT).show();
-                }else{
-                    progressBarUtility.cancelDialog();
-                    Toast.makeText(InterestActivity.this, "Error while storing interest.", Toast.LENGTH_SHORT).show();
-                }
+               if(null!=response.body()) {
+                   if (response.body().isStatus()) {
+                       progressBarUtility.cancelDialog();
+                       SharedPreferences.Editor editor = AppController.sharedPreferences.edit();
+                       editor.putBoolean("isInterestSet", true);
+                       editor.commit();
+                       finish();
+                       Toast.makeText(InterestActivity.this, "Interest saved sucessfully.", Toast.LENGTH_SHORT).show();
+                   } else {
+                       progressBarUtility.cancelDialog();
+                       Toast.makeText(InterestActivity.this, "Error while storing interest.", Toast.LENGTH_SHORT).show();
+                   }
+               }else{
+                   progressBarUtility.cancelDialog();
+                   Toast.makeText(InterestActivity.this, "Error occured.Please try again", Toast.LENGTH_SHORT).show();
+               }
             }
 
             @Override

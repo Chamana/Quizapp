@@ -104,7 +104,8 @@ public class CreatePostActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.back_iv:break;
+            case R.id.back_iv:  finish();
+                                break;
             case R.id.text_tv:  setPostType("text");
                                 break;
             case R.id.photo_tv: setPostType("image");

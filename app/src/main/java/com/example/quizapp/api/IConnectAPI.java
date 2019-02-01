@@ -1,21 +1,45 @@
 package com.example.quizapp.api;
 
-import com.example.quizapp.models.request.CreatePostRequest;
-import com.example.quizapp.models.request.LoginRequest;
-import com.example.quizapp.models.request.SignupRequest;
-import com.example.quizapp.models.request.UpdateProfileRequest;
 import com.example.quizapp.models.Response.AddCommentResponse;
+import com.example.quizapp.models.Response.AdvertisementResponse;
 import com.example.quizapp.models.Response.CommentResponse;
 import com.example.quizapp.models.Response.CreatePostResponse;
+import com.example.quizapp.models.Response.CurrentLeaderBoardResponse;
+import com.example.quizapp.models.Response.DynamicResponse;
+import com.example.quizapp.models.Response.GetAllContestResponse;
+import com.example.quizapp.models.Response.GetContestQuestion;
+import com.example.quizapp.models.Response.GetContestQuestionBody;
+import com.example.quizapp.models.Response.GetQuestionWinner;
+import com.example.quizapp.models.Response.GetSkippedQuestion;
 import com.example.quizapp.models.Response.InterestListResponse;
 import com.example.quizapp.models.Response.LoginResponse;
 import com.example.quizapp.models.Response.NotificationTokenResponse;
+import com.example.quizapp.models.Response.OverallLeaderboardResponse;
 import com.example.quizapp.models.Response.SearchResponse;
 import com.example.quizapp.models.Response.SignupResponse;
+import com.example.quizapp.models.Response.SubmitQuesResponse;
 import com.example.quizapp.models.Response.UpdateProfileResponse;
+import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
+import com.example.quizapp.models.request.CreatePostRequest;
+import com.example.quizapp.models.request.LoginRequest;
+import com.example.quizapp.models.request.PutSkippedQuestion;
+import com.example.quizapp.models.request.PutSubmitQuestion;
+import com.example.quizapp.models.request.SignupRequest;
+import com.example.quizapp.models.request.SubmitQuesBody;
+import com.example.quizapp.models.request.SubscribeButtonRequest;
+import com.example.quizapp.models.request.UpdateProfileRequest;
+import com.example.quizapp.models.request.UserGetAllContestRequest;
+import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitContest;
+import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitQuestion;
+import com.example.quizapp.response.HomeFeedResponse;
+import com.example.quizapp.response.LikeDislikePost;
+import com.example.quizapp.response.NotificationResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -43,6 +67,17 @@ import com.example.quizapp.models.Response.contestDetails.GetContestDetailsRespo
 import java.util.List;
 
 public interface IConnectAPI {
+    @GET("/post/userWall/{userId}")
+    public Call<HomeFeedResponse> getHomeFeedResponse(@Path("userId") String userId);
+
+    @POST("/post/like/{postId}/{userId}")
+    public Call<LikeDislikePost> postLike(@Path("postId") String postId, @Path("userId") String userId);
+
+    @DELETE("/post/dislike/{postId}/{userId}")
+    public Call<LikeDislikePost> postDislike(@Path("postId") String postId, @Path("userId") String userId);
+
+    @GET("/notification/{userId}")
+    public Call<NotificationResponse> getNotifications(@Path("userId") String userId);
 
 
     @POST("/users/sign-up")
@@ -63,6 +98,8 @@ public interface IConnectAPI {
     @PUT("/userProfile/updateUserResp/{userId}")
     Call<UpdateProfileResponse> addInterestList(@Path(value = "userId") String userId, @Body UpdateProfileRequest request);
 
+    @GET("/getReport/{contestId}/leaderboard")
+    Call<List<CurrentLeaderBoardResponse>> getContestLeaderboard(@Path(value = "contestId") String contestId);
     @POST("/post/add")
     Call<CreatePostResponse> createPost(@Body CreatePostRequest request);
 
@@ -118,5 +155,8 @@ public interface IConnectAPI {
 
     @GET("/contests/{contestId}/play/question/{questionId}/winner")
     public Call<GetQuestionWinner> getQuestionWinner(@Path(value = "contestId") String contestId, @Path(value = "questionId") String questionId);
+
+    @GET("/advertisement/bulk/{userId}/{count}")
+    public Call<AdvertisementResponse> getAdvertisements(@Path("userId") String userId, @Path("count") Integer count);
 
 }

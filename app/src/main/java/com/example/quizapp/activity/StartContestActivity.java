@@ -15,9 +15,9 @@ import com.example.quizapp.ContestPage;
 import com.example.quizapp.R;
 import com.example.quizapp.api.AppController;
 import com.example.quizapp.api.IConnectAPI;
+import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
 import com.example.quizapp.models.request.SubscribeButtonRequest;
 import com.example.quizapp.models.request.UserGetAllContestRequest;
-import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,19 +50,9 @@ public class StartContestActivity extends AppCompatActivity {
         contestName = findViewById(R.id.NameOfContest);
 
 
-        Button leaderButton = findViewById(R.id.LeaderBoardButton);
+        final Button leaderButton = findViewById(R.id.LeaderBoardButton);
         final Button subscribeButton = findViewById(R.id.subscribe);
 
-
-        leaderButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(StartContestActivity.this, LeaderBoard.class);
-                startActivity(intent);
-
-            }
-        });
 
         iConnectAPI = AppController.retrofit.create(IConnectAPI.class);
         iConnectAPI.getContestDetails(contestId, userGetAllContestRequest).enqueue(new Callback<GetContestDetailsResponse>() {
@@ -97,7 +87,7 @@ public class StartContestActivity extends AppCompatActivity {
                                                 subscribeButton.setOnClickListener(new View.OnClickListener() {
                                                     @Override
                                                     public void onClick(View v) {
-                                                        startActivity(new Intent(StartContestActivity.this , ContestPage.class));
+                                                        startActivity(new Intent(StartContestActivity.this, ContestPage.class));
 
                                                     }
                                                 });
@@ -118,6 +108,7 @@ public class StartContestActivity extends AppCompatActivity {
                             }
                         });
 
+
                       /* subscribeButton.setOnClickListener(new View.OnClickListener() {
                            @Override
                            public void onClick(View v) {
@@ -127,6 +118,16 @@ public class StartContestActivity extends AppCompatActivity {
                            }});*/
 
                     }
+                    leaderButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            Intent intent = new Intent(StartContestActivity.this, ContestLeaderboardActivity.class);
+                            intent.putExtra("contestId",contestId);
+                            startActivity(intent);
+
+                        }
+                    });
 
                     categoryName.setText(getContestDetailsResponse.getResponse().getCategoryId());
                     noOfQuestions.setText(String.valueOf(getContestDetailsResponse.getResponse().getNoOfQuestions()));
@@ -141,7 +142,7 @@ public class StartContestActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<GetContestDetailsResponse> call, Throwable t) {
 
-               Toast.makeText(StartContestActivity.this,"Failure",Toast.LENGTH_SHORT).show();
+                Toast.makeText(StartContestActivity.this, "Failure", Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -45,7 +45,7 @@ public class NotificationActivity extends AppCompatActivity {
                 .client(client)
                 .build();
         IConnectAPI iConnectAPI=retrofit.create(IConnectAPI.class);
-        iConnectAPI.getNotifications(userId).enqueue(new Callback<NotificationResponse>() {
+        iConnectAPI.getNotifications(userId,0).enqueue(new Callback<NotificationResponse>() {
             @Override
             public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
                 System.out.println("WWW"+response.body());

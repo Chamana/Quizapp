@@ -1,13 +1,32 @@
 package com.example.quizapp.api;
 
-import com.example.quizapp.models.request.LoginRequest;
-import com.example.quizapp.models.request.SignupRequest;
-import com.example.quizapp.models.request.UpdateProfileRequest;
+import com.example.quizapp.models.Response.CurrentLeaderBoardResponse;
+import com.example.quizapp.models.Response.DynamicResponse;
+import com.example.quizapp.models.Response.GetAllContestResponse;
+import com.example.quizapp.models.Response.GetContestQuestion;
+import com.example.quizapp.models.Response.GetContestQuestionBody;
+import com.example.quizapp.models.Response.GetQuestionWinner;
+import com.example.quizapp.models.Response.GetSkippedQuestion;
 import com.example.quizapp.models.Response.InterestListResponse;
 import com.example.quizapp.models.Response.LoginResponse;
 import com.example.quizapp.models.Response.NotificationTokenResponse;
+import com.example.quizapp.models.Response.OverallLeaderboardResponse;
 import com.example.quizapp.models.Response.SignupResponse;
+import com.example.quizapp.models.Response.SubmitQuesResponse;
 import com.example.quizapp.models.Response.UpdateProfileResponse;
+import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
+import com.example.quizapp.models.request.LoginRequest;
+import com.example.quizapp.models.request.PutSkippedQuestion;
+import com.example.quizapp.models.request.PutSubmitQuestion;
+import com.example.quizapp.models.request.SignupRequest;
+import com.example.quizapp.models.request.SubmitQuesBody;
+import com.example.quizapp.models.request.SubscribeButtonRequest;
+import com.example.quizapp.models.request.UpdateProfileRequest;
+import com.example.quizapp.models.request.UserGetAllContestRequest;
+import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitContest;
+import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitQuestion;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -17,25 +36,6 @@ import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
-import com.example.quizapp.models.request.PutSkippedQuestion;
-import com.example.quizapp.models.request.PutSubmitQuestion;
-import com.example.quizapp.models.request.SubmitQuesBody;
-import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitContest;
-import com.example.quizapp.models.request.dynamicSubmitRequest.SubmitQuestion;
-import com.example.quizapp.models.Response.DynamicResponse;
-import com.example.quizapp.models.Response.GetContestQuestion;
-import com.example.quizapp.models.Response.GetContestQuestionBody;
-import com.example.quizapp.models.Response.GetQuestionWinner;
-import com.example.quizapp.models.Response.GetSkippedQuestion;
-import com.example.quizapp.models.Response.SubmitQuesResponse;
-import com.example.quizapp.models.request.SubscribeButtonRequest;
-import com.example.quizapp.models.request.UserGetAllContestRequest;
-import com.example.quizapp.models.Response.GetAllContestResponse;
-import com.example.quizapp.models.Response.OverallLeaderboardResponse;
-import com.example.quizapp.models.Response.contestDetails.GetContestDetailsResponse;
-
-import java.util.List;
 
 public interface IConnectAPI {
 
@@ -58,11 +58,8 @@ public interface IConnectAPI {
     @PUT("/userProfile/updateUserResp/{userId}")
     Call<UpdateProfileResponse> addInterestList(@Path(value = "userId") String userId, @Body UpdateProfileRequest request);
 
-
-
-    @GET("/contests/getAll")
-    public Call<GetAllContestResponse> getAllContest();
-
+    @GET("/getReport/{contestId}/leaderboard")
+    Call<List<CurrentLeaderBoardResponse>> getContestLeaderboard(@Path(value = "contestId") String contestId);
 
     @POST("/contests/{contestId}/play/nextQuestion")
     public Call<GetContestQuestion> getContestQuestion(@Path(value = "contestId") String contestId, @Body GetContestQuestionBody getContestQuestionBody);

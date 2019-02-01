@@ -37,11 +37,13 @@ public class ContestFragment extends Fragment implements Icommunicator {
     private GetAllContestResponse getAllContestResponses = new GetAllContestResponse();
     private IConnectAPI iConnectAPI;
     private ContestCardViewAdapter contestCardViewAdapter;
-    private String userId = "u1";
+    private String userId ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        userId = AppController.sharedPreferences.getString("userId","No user from android");
+
     }
 
     @Override

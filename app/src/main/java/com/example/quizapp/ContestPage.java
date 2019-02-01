@@ -269,7 +269,7 @@ public class ContestPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SubmitQuesResponse> call, Throwable t) {
-
+                Log.d("Fail: ",t.getMessage());
             }
         });
     }
@@ -444,7 +444,11 @@ public class ContestPage extends AppCompatActivity {
 
     public void updateUI(Question question) throws IOException {
         Log.d("updateUI", question.toString());
-
+        cb1.setVisibility(View.VISIBLE);
+        cb2.setVisibility(View.VISIBLE);
+        cb3.setVisibility(View.VISIBLE);
+        cb4.setVisibility(View.VISIBLE);
+        cb5.setVisibility(View.VISIBLE);
         if (question.getQuesType().equals("Text")) {
             ques_vv.setVisibility(View.GONE);
             ques_iv.setVisibility(View.GONE);
@@ -457,19 +461,19 @@ public class ContestPage extends AppCompatActivity {
             ques_tv.setVisibility(View.GONE);
             ques_iv.setVisibility(View.VISIBLE);
             String img2 = question.getQuesContent();
-//            String img2="https://static.standard.co.uk/s3fs-public/thumbnails/image/2018/12/17/09/lionelmessi1712.jpg";
-            // Log.d("Image:",img2);
-            //Toast.makeText(ContestPage.this, "" + img2, Toast.LENGTH_SHORT).show();
             Glide.with(this).load(img2).apply(new RequestOptions().override(500, 500)).into(ques_iv);
         } else if (question.getQuesType().equals("Video")) {
-            ques_iv.setVisibility(View.GONE);
+            ques_vv.setVisibility(View.GONE);
             ques_tv.setVisibility(View.GONE);
-            ques_vv.setVisibility(View.VISIBLE);
-            if (ques_vv != null) {
-                ques_vv.setVideoURI(Uri.parse(question.getQuesContent()));
-                ques_vv.requestFocus();
-                ques_vv.start();
-            }
+            ques_iv.setVisibility(View.VISIBLE);
+
+            String img2 = question.getQuesContent();
+            Glide.with(this).load(img2).apply(new RequestOptions().override(500, 500)).into(ques_iv);
+//            if (ques_vv != null) {
+//                ques_vv.setVideoURI(Uri.parse(question.getQuesContent()));
+//                ques_vv.requestFocus();
+//                ques_vv.start();
+            //}
         } else if (question.getQuesType().equals("Audio")) {
             ques_iv.setVisibility(View.GONE);
             ques_vv.setVisibility(View.GONE);
@@ -488,12 +492,12 @@ public class ContestPage extends AppCompatActivity {
             cb1.setText(question.getOptionContent().get(0));
             cb2.setText(question.getOptionContent().get(1));
             cb3.setText(question.getOptionContent().get(2));
-            if(question.getQuesContent().length()>3)
-            cb4.setText(question.getOptionContent().get(3));
+            if(question.getOptionContent().size()>3)
+                cb4.setText(question.getOptionContent().get(3));
             else
                 cb4.setVisibility(View.GONE);
 
-        if (question.getQuesContent().length() == 5)
+        if (question.getOptionContent().size() == 5)
             cb5.setText(question.getOptionContent().get(4));
         else
             cb5.setVisibility(View.GONE);

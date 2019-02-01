@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/interest_tv"
+    android:text="Sample category"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:padding="15dp"
+    android:layout_margin="10dp"
+    android:textColor="@color/colorAccent"
+    android:textAppearance="?android:textAppearanceMedium"
+    android:background="@drawable/interest_bgk_unselected"
+    android:elevation="0dp"
+    android:tag="unsel"/>

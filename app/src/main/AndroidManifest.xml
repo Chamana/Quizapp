@@ -62,12 +62,12 @@
             android:screenOrientation="portrait"/>
 
 
-        <activity android:name=".activity.EndContestActivity"/>
+        <!--<activity android:name=".activity.EndContestActivity"/>-->
 
-        <activity android:name=".activity.StartContestActivity"/>
+        <!--<activity android:name=".activity.StartContestActivity"/>-->
 
-        <activity android:name=".utils.DynamicContestPage"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <!--<activity android:name=".utils.DynamicContestPage"-->
+            <!--android:theme="@style/AppTheme.NoActionBar"/>-->
 
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />

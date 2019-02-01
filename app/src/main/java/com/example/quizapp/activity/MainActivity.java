@@ -66,9 +66,9 @@ public class MainActivity extends AppCompatActivity
         socialMedia.setIcon(R.drawable.socialmedia);
         tabLayout.addTab(socialMedia);
 
-        if(!AppController.sharedPreferences.getBoolean("isInterestSet",false)){
-            startActivity(new Intent(MainActivity.this,InterestActivity.class));
-        }
+//        if(!AppController.sharedPreferences.getBoolean("isInterestSet",false)){
+//            startActivity(new Intent(MainActivity.this,InterestActivity.class));
+//        }
 
         if (savedInstanceState == null) {
             fragment = new ContestFragment();

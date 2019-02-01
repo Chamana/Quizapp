@@ -1,17 +1,12 @@
 package com.example.quizapp.api;
 
 import com.example.quizapp.models.Response.dynamicContest.DynamicContestResponse;
-import com.example.quizapp.models.request.CreatePostRequest;
 import com.example.quizapp.models.request.LoginRequest;
 import com.example.quizapp.models.request.SignupRequest;
 import com.example.quizapp.models.request.UpdateProfileRequest;
-import com.example.quizapp.models.Response.AddCommentResponse;
-import com.example.quizapp.models.Response.CommentResponse;
-import com.example.quizapp.models.Response.CreatePostResponse;
 import com.example.quizapp.models.Response.InterestListResponse;
 import com.example.quizapp.models.Response.LoginResponse;
 import com.example.quizapp.models.Response.NotificationTokenResponse;
-import com.example.quizapp.models.Response.SearchResponse;
 import com.example.quizapp.models.Response.SignupResponse;
 import com.example.quizapp.models.Response.UpdateProfileResponse;
 
@@ -63,18 +58,6 @@ public interface IConnectAPI {
 
     @PUT("/userProfile/updateUserResp/{userId}")
     Call<UpdateProfileResponse> addInterestList(@Path(value = "userId") String userId, @Body UpdateProfileRequest request);
-
-    @POST("/post/add")
-    Call<CreatePostResponse> createPost(@Body CreatePostRequest request);
-
-    @GET("/post/getPost/{postId}")
-    Call<CommentResponse> getComments(@Path(value = "postId") String postId);
-
-    @PUT("/post/addComment/{postId}")
-    Call<AddCommentResponse> postComments(@Path(value = "postId") String postId, @Query(value = "userId") String userId, @Query(value = "userName") String userName, @Query("description") String description, @Query(value = "userImage") String userImage);
-
-    @GET("/userProfile/getByUserName")
-    Call<SearchResponse> searchByName(@Query(value = "username") String username);
 
     @GET("/contests/getAll")
     public Call<GetAllContestResponse> getAllContest();

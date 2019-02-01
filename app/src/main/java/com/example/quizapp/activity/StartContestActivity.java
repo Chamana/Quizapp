@@ -32,15 +32,19 @@ public class StartContestActivity extends AppCompatActivity {
     private GetContestDetailsResponse getContestDetailsResponse;
     private UserGetAllContestRequest userGetAllContestRequest = new UserGetAllContestRequest();
     private SubscribeButtonRequest subscribeButtonRequest = new SubscribeButtonRequest();
+    String userId;
+    String contestId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_contest_layout);
         Intent intent = getIntent();
-        final String contestId = intent.getStringExtra("contestId");
 
-        userGetAllContestRequest.setUserId("u1");
+        contestId = intent.getStringExtra("contestId");
+        Toast.makeText(this, "contestId: " + contestId, Toast.LENGTH_SHORT).show();
+        userId = AppController.sharedPreferences.getString("userId","No user from android");
+        userGetAllContestRequest.setUserId(userId);
 
         ImageView ContestimageView = (ImageView) findViewById(R.id.ContestImage);
         ContestimageView.setImageResource(R.drawable.ic_launcher_background);
@@ -79,7 +83,9 @@ public class StartContestActivity extends AppCompatActivity {
                         subscribeButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                startActivity(new Intent(StartContestActivity.this, ContestPage.class));
+                                Intent intent = new Intent(StartContestActivity.this, ContestPage.class);
+                                intent.putExtra("contestId",contestId);
+                                startActivity(intent);
 
                             }
                         });

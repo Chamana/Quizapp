@@ -75,6 +75,8 @@ public class DynamicContestPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_contest_page);
 
+        getUserIdFromSharedPreferences();
+
         contestId = getIntent().getStringExtra("contestId");
         if(contestId == null){
             Toast.makeText(this, "App Error: Couldn't get contestId \n Exiting Dynamic Contest"  , Toast.LENGTH_SHORT).show();
@@ -130,6 +132,9 @@ public class DynamicContestPage extends AppCompatActivity {
 
     }
 
+    private void getUserIdFromSharedPreferences() {
+        userId=AppController.sharedPreferences.getString("userId","No User From Android");
+    }
 
 
     private void submitContest() {
@@ -330,7 +335,10 @@ public class DynamicContestPage extends AppCompatActivity {
                 cb1.setText(dynamicQuestionDTO.getOptionDTOList().get(0).getOptionContent());
                 cb2.setText(dynamicQuestionDTO.getOptionDTOList().get(1).getOptionContent());
                 cb3.setText(dynamicQuestionDTO.getOptionDTOList().get(2).getOptionContent());
+                if(dynamicQuestionDTO.getOptionDTOList().size()>3)
                 cb4.setText(dynamicQuestionDTO.getOptionDTOList().get(3).getOptionContent());
+                else
+                    cb4.setVisibility(View.GONE);
             }catch (Exception e){
                 Log.e("Option error",e.getMessage());
             }

@@ -404,7 +404,10 @@ public class DynamicContestPage extends AppCompatActivity {
                 if(null==response)
                     tv_winner.setText(response.body().getErrorMessage());
                 else
-                    tv_winner.setText(response.body().getResponse());
+                    if(null==response.body().getResponse())
+                        tv_winner.setText("");
+                    else
+                        tv_winner.setText(response.body().getResponse()+" Won");
             }
 
             @Override

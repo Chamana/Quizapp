@@ -2,6 +2,7 @@ package com.example.quizapp.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.quizapp.Icommunicator;
 import com.example.quizapp.R;
@@ -37,7 +39,7 @@ public class ContestFragment extends Fragment implements Icommunicator {
     private GetAllContestResponse getAllContestResponses = new GetAllContestResponse();
     private IConnectAPI iConnectAPI;
     private ContestCardViewAdapter contestCardViewAdapter;
-    private String userId = "u1";
+    private String userId = "14663c41-262d-4ae0-b3d9-c8aa40c4ff4f";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,10 +81,14 @@ public class ContestFragment extends Fragment implements Icommunicator {
 
     @Override
     public void navigate(int position) {
-        Intent intent = new Intent(getContext(), StartContestActivity.class);
-        intent.putExtra("contestId", getAllContestResponses.getResponse().get(position).getContestId());
-        startActivity(intent);
-    }
+        if (getAllContestResponses.getResponse().get(position).isFinished()) {
+            Intent intent = new Intent(getContext(), StartContestActivity.class);
+            intent.putExtra("contestId", getAllContestResponses.getResponse().get(position).getContestId());
+            startActivity(intent);
+        } else {
+            Toast.makeText(getContext(), "You have already taken the test", Toast.LENGTH_LONG).show();
+        }
 
+    }
 }
 

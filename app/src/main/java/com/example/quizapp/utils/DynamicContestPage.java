@@ -1,5 +1,6 @@
 package com.example.quizapp.utils;
 
+import android.app.ProgressDialog;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -43,6 +44,7 @@ import retrofit2.Response;
 public class DynamicContestPage extends AppCompatActivity {
 
     private static final String DYNAMIC_CONTEST_DB_NODE = "Dynamic_Contest";
+    private static final String SAVING_SUBMIT_CONTEST = "Processing the contest";
     TextView ques_tv;
     ImageView ques_iv;
     VideoView ques_vv;
@@ -69,6 +71,7 @@ public class DynamicContestPage extends AppCompatActivity {
     MediaPlayer dynamicCountdownPlayer;
     MediaPlayer dynamicSleepingPlayer;
     MediaPlayer questionAudioPlayer;
+    ProgressDialog progressDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,16 +142,18 @@ public class DynamicContestPage extends AppCompatActivity {
 
     private void submitContest() {
         SubmitContest submitContest=new SubmitContest("",userId);
+        showProgressDialog(SAVING_SUBMIT_CONTEST);
         iConnectAPI.submitDynamicContest(contestId,submitContest).enqueue(new Callback<DynamicResponse>() {
             @Override
             public void onResponse(Call<DynamicResponse> call, Response<DynamicResponse> response) {
                 Log.d("Contest Submit : ",response.body().toString());
+                hideProgressDialog();
                 finish();
             }
 
             @Override
             public void onFailure(Call<DynamicResponse> call, Throwable t) {
-
+                hideProgressDialog();
             }
         });
     }
@@ -302,20 +307,19 @@ public class DynamicContestPage extends AppCompatActivity {
                 ques_tv.setVisibility(View.GONE);
                 ques_iv.setVisibility(View.VISIBLE);
                 String img2 = dynamicQuestionDTO.getQuestionContent();
-//            String img2="https://static.standard.co.uk/s3fs-public/thumbnails/image/2018/12/17/09/lionelmessi1712.jpg";
-                // Log.d("Image:",img2);
-                //Toast.makeText(ContestPage.this, "" + img2, Toast.LENGTH_SHORT).show();
                 Glide.with(this).load(img2).apply(new RequestOptions().override(500,500)).into(ques_iv);
             }
             else if(dynamicQuestionDTO.getQuestionType().equals("Video")){
-                ques_iv.setVisibility(View.GONE);
+                ques_vv.setVisibility(View.GONE);
                 ques_tv.setVisibility(View.GONE);
-                ques_vv.setVisibility(View.VISIBLE);
-                if (ques_vv != null)
-                {  ques_vv.setVideoURI(Uri.parse(dynamicQuestionDTO.getQuestionContent()));
-                    ques_vv.requestFocus();
-                    ques_vv.start();
-                }
+                ques_iv.setVisibility(View.VISIBLE);
+                String img2 = dynamicQuestionDTO.getQuestionContent();
+                Glide.with(this).load(img2).apply(new RequestOptions().override(500,500)).into(ques_iv);
+//                if (ques_vv != null)
+//                {  ques_vv.setVideoURI(Uri.parse(dynamicQuestionDTO.getQuestionContent()));
+//                    ques_vv.requestFocus();
+//                    ques_vv.start();
+//                }
             }
             else if(dynamicQuestionDTO.getQuestionType().equals("Audio"))
             {
@@ -442,6 +446,7 @@ public class DynamicContestPage extends AppCompatActivity {
                 dynamicCountdownPlayer.pause();
                 updateCurrentQuestion();
 
+                dynamicSleepingPlayer.seekTo(0);
                 dynamicSleepingPlayer.start();
                 tv_halt_timer.setText("Admin is sleeping..."+(new String(Character.toChars(0x1F634))));
             }
@@ -507,6 +512,19 @@ public class DynamicContestPage extends AppCompatActivity {
 
     public void showSnackBar(String msg){
         Snackbar.make(findViewById(R.id.layoutDynamicContest),msg,Snackbar.LENGTH_LONG).show();
+    }
+
+    void showProgressDialog(String msg){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.setMessage(msg);
+        progressDialog.show();
+    }
+
+    void hideProgressDialog(){
+        progressDialog.hide();
     }
 
 }

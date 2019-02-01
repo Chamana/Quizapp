@@ -1,5 +1,6 @@
 package com.example.quizapp;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.AudioManager;
@@ -48,6 +49,10 @@ import retrofit2.Retrofit;
 
 public class ContestPage extends AppCompatActivity {
 
+    private static final String SAVING_SUBMIT = "Saving your response";
+    private static final String DISPLAY_QUESTION_LOADING = "Get Set Ready";
+    private static final String SAVING_SUBMIT_CONTEST = "Processing the contest";
+    private static final String SKIPPING_QUESTION = "Let's check can you answer it later";
     private TextView timer;
     private Button submit;
     private Button skip;
@@ -74,6 +79,7 @@ public class ContestPage extends AppCompatActivity {
     String ans;
     String userId;
     String contestId;
+    ProgressDialog progressDialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -241,9 +247,11 @@ public class ContestPage extends AppCompatActivity {
     }
 
     public void submitContest(final IConnectAPI iConnectAPI) {
+        showProgressDialog(SAVING_SUBMIT_CONTEST);
         iConnectAPI.submitContest(contestId, getContestQuestionBody).enqueue(new Callback<SubmitQuesResponse>() {
             @Override
             public void onResponse(Call<SubmitQuesResponse> call, Response<SubmitQuesResponse> response) {
+                hideProgressDialog();
                 Log.d("SUBMIT RESPONSE: ", response.body().toString());
                 if (response.body().getSubmitResponse() != null) {
                     contestSubmit.setErrorMsg(response.body().getErrorMessage());
@@ -269,17 +277,18 @@ public class ContestPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<SubmitQuesResponse> call, Throwable t) {
-
+                hideProgressDialog();
             }
         });
     }
 
     public void nextQues(final IConnectAPI iConnectAPI) {
 
-
+        showProgressDialog(DISPLAY_QUESTION_LOADING);
         iConnectAPI.getContestQuestion(contestId, getContestQuestionBody).enqueue(new Callback<GetContestQuestion>() {
             @Override
             public void onResponse(Call<GetContestQuestion> call, Response<GetContestQuestion> response) {
+                hideProgressDialog();
                 Log.d("PLAY_AREA: ", response.body().toString());
                 if (response.body().getStatus().equals("failure") && response.body().getErrorMessage().equals("check skipped questions"))
                     skippedAlertDialogue(iConnectAPI);
@@ -322,6 +331,7 @@ public class ContestPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<GetContestQuestion> call, Throwable t) {
+                hideProgressDialog();
                 Toast.makeText(ContestPage.this, "***" + t, Toast.LENGTH_SHORT).show();
             }
         });
@@ -335,12 +345,12 @@ public class ContestPage extends AppCompatActivity {
         Request request = new Request(question.getQuesId(), 1, optionIds);
         SubmitQuesBody submitQuesBody = new SubmitQuesBody(request, userId);
         System.out.println(submitQuesBody);
-
+        showProgressDialog(SAVING_SUBMIT);
         Call<PutSubmitQuestion> call = iConnectAPI.putSubmitQuestion(contestId, "" + question.getQuesId(), submitQuesBody);
         call.enqueue(new Callback<PutSubmitQuestion>() {
             @Override
             public void onResponse(Call<PutSubmitQuestion> call, Response<PutSubmitQuestion> response) {
-
+                hideProgressDialog();
                 System.out.println(" question submitted");
                 //nextQues(iConnectAPI);
                 Log.d("SUBMIT", response.body().toString());
@@ -353,7 +363,7 @@ public class ContestPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PutSubmitQuestion> call, Throwable t) {
-
+                hideProgressDialog();
                 System.out.println(t.getMessage());
 
             }
@@ -378,9 +388,11 @@ public class ContestPage extends AppCompatActivity {
     }
 
     public void skip() {
+        showProgressDialog(SKIPPING_QUESTION);
         iConnectAPI.putSkippedQuestion(contestId, "" + question.getQuesId(), getContestQuestionBody).enqueue(new Callback<PutSkippedQuestion>() {
             @Override
             public void onResponse(Call<PutSkippedQuestion> call, Response<PutSkippedQuestion> response) {
+                hideProgressDialog();
                 Log.d("SKIPPED", response.body().toString());
                 if (response.body().getStatus().equals("success"))
                 { alertDialogue(iConnectAPI);
@@ -392,7 +404,7 @@ public class ContestPage extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PutSkippedQuestion> call, Throwable t) {
-
+                hideProgressDialog();
             }
         });
     }
@@ -457,20 +469,19 @@ public class ContestPage extends AppCompatActivity {
             ques_tv.setVisibility(View.GONE);
             ques_iv.setVisibility(View.VISIBLE);
             String img2 = question.getQuesContent();
-//            String img2="https://static.standard.co.uk/s3fs-public/thumbnails/image/2018/12/17/09/lionelmessi1712.jpg";
-            // Log.d("Image:",img2);
-            //Toast.makeText(ContestPage.this, "" + img2, Toast.LENGTH_SHORT).show();
             Glide.with(this).load(img2).apply(new RequestOptions().override(500, 500)).into(ques_iv);
         } else if (question.getQuesType().equals("Video")) {
-            ques_iv.setVisibility(View.GONE);
+            ques_vv.setVisibility(View.GONE);
             ques_tv.setVisibility(View.GONE);
-            ques_vv.setVisibility(View.VISIBLE);
-            if (ques_vv != null) {
-                ques_vv.setVideoURI(Uri.parse(question.getQuesContent()));
-                ques_vv.requestFocus();
-                ques_vv.start();
+            ques_iv.setVisibility(View.VISIBLE);
+            String img2 = question.getQuesContent();
+            Glide.with(this).load(img2).apply(new RequestOptions().override(500, 500)).into(ques_iv);
+//            if (ques_vv != null) {
+//                ques_vv.setVideoURI(Uri.parse(question.getQuesContent()));
+//                ques_vv.requestFocus();
+//                ques_vv.start();
             }
-        } else if (question.getQuesType().equals("Audio")) {
+         else if (question.getQuesType().equals("Audio")) {
             ques_iv.setVisibility(View.GONE);
             ques_vv.setVisibility(View.GONE);
             ques_tv.setVisibility(View.VISIBLE);
@@ -497,6 +508,19 @@ public class ContestPage extends AppCompatActivity {
             cb5.setText(question.getOptionContent().get(4));
         else
             cb5.setVisibility(View.GONE);
+    }
+    
+    void showProgressDialog(String msg){
+        if(progressDialog == null){
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.setMessage(msg);
+        progressDialog.show();
+    }
+    
+    void hideProgressDialog(){
+        progressDialog.hide();
     }
 
 }

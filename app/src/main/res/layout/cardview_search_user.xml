@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/user_ll"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="?android:selectableItemBackground"
+    android:weightSum="1">
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_weight="0.2"
+        android:layout_height="match_parent">
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/user_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerInParent="true"
+            app:civ_border="false"/>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/name_tv"
+        android:text="Chaman Ashok Sharma"
+        android:layout_width="0dp"
+        android:layout_weight="0.8"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:textColor="@color/black"/>
+</LinearLayout>

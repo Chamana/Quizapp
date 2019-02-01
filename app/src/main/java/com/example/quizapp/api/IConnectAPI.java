@@ -72,6 +72,9 @@ public interface IConnectAPI {
     @PUT("/post/addComment/{postId}")
     Call<AddCommentResponse> postComments(@Path(value = "postId") String postId, @Query(value = "userId") String userId, @Query(value = "userName") String userName, @Query("description") String description, @Query(value = "userImage") String userImage);
 
+    @PUT("/post/addReply/{postId}/{commentId}")
+    Call<AddCommentResponse> addReply(@Path(value = "postId") String postId,@Path(value = "commentId")String commentId,@Query(value = "userId")String userId,@Query(value = "userName") String userName,@Query(value = "reply")String reply,@Query(value = "userImage")String userImage);
+
     @GET("/userProfile/getByUserName")
     Call<SearchResponse> searchByName(@Query(value = "username") String username);
 

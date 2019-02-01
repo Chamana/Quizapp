@@ -16,9 +16,9 @@ import retrofit2.http.Path;
 public interface IConnectAPI {
 
     @GET("/post/findByUserId/{userId}")
-    public Call<UserFeedResponse> getUserFeed(@Path("userId")int userId);
+    public Call<UserFeedResponse> getUserFeed(@Path("userId")String userId);
     @GET("follow/getFollowResponse/{userId}")
-    public Call<UserProfileResponse> getUserInfo(@Path("userId")int userId);
+    public Call<UserProfileResponse> getUserInfo(@Path("userId")String userId);
     @POST("/post/like/{postId}/{userId}")
     public Call<LikeDislikePost> postLike(@Path("postId") String postId, @Path("userId") String userId);
 

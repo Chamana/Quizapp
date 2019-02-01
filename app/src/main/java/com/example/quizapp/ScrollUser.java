@@ -41,7 +41,8 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
     private ArrayList<List<PostListItem>> PostListItems = new ArrayList<>();
     int likedBoolean;
     String likedPostId;
-    String userId="1";
+    String name1;
+    String userId="c2b67514-cc58-42d1-904a-3b6083ecd6de";
 
 
     private RecyclerView mRecyclerView;
@@ -80,10 +81,13 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
                 .client(client1)
                 .build();
         IConnectAPI iApi1 = retrofit1.create(IConnectAPI.class);
-        iApi1.getUserInfo(1).enqueue(new Callback<UserProfileResponse>() {
+        iApi1.getUserInfo(userId).enqueue(new Callback<UserProfileResponse>() {
             @Override
             public void onResponse(Call<UserProfileResponse> call, Response<UserProfileResponse> response) {
                 name.setText(response.body().getUsername());
+//                String abc =(String) name.getText();
+//                System.out.println(abc);
+//                System.out.println(name.getText());
                 Glide.with(userdp.getContext()).load(response.body().getUserImageURL()).into(userdp);
                 followers.setText(String.valueOf(response.body().getFollowResponseFollowerList().size()));
                 following.setText(String.valueOf(response.body().getFollowResponseDTOList1().size()));
@@ -128,7 +132,7 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
                 .client(client)
                 .build();
         IConnectAPI iApi = retrofit.create(IConnectAPI.class);
-        iApi.getUserFeed(1).enqueue(new Callback<UserFeedResponse>() {
+        iApi.getUserFeed(userId ).enqueue(new Callback<UserFeedResponse>() {
             @Override
             public void onResponse(Call<UserFeedResponse> call, Response<UserFeedResponse> response) {
                 System.out.println(response.body());
@@ -140,7 +144,7 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
 //                response.body().getPostList().get(i).getPostLikes();
 
                 post.setText(String.valueOf(postcount));
-                mAdapter=new UserFeedAdapter(response.body().getPostList(),likedBoolean,ScrollUser.this,"1");
+                mAdapter=new UserFeedAdapter(response.body().getPostList(),likedBoolean,ScrollUser.this,userId,(String) name.getText());
                 ((UserFeedAdapter) mAdapter).setMethod(ScrollUser.this);
 
                 mRecyclerView.setAdapter(mAdapter);
@@ -216,6 +220,7 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
     }
 
     public void dislikePostMethod(){
+        System.out.println("DISLIKING");
         OkHttpClient client = new OkHttpClient.Builder().build();
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.177.7.137:8080")
@@ -226,7 +231,7 @@ public class ScrollUser extends AppCompatActivity implements CommentCommunicator
         iConnectAPI.postDislike(likedPostId,userId).enqueue(new Callback<LikeDislikePost>() {
             @Override
             public void onResponse(Call<LikeDislikePost> call, Response<LikeDislikePost> response) {
-                Log.d("TSTRESPONSE",response.body().toString());
+                Log.d("TSRESPONSE",response.body().toString());
                 //System.out.println(response.body().getMessage());
             }
             @Override

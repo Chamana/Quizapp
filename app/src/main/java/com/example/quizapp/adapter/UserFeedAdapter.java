@@ -28,9 +28,10 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
     private List<PostListItem> postList;
-    int likedBoolean;
+    private int likedBoolean;
     private ProgressDialog pd;
-    String userId;
+    private String userId;
+    private String name;
     private LikeCommunicator likeCommunicator;
     private CommentCommunicator commentCommunicator;
     public void setMethod(CommentCommunicator commentCommunicator){
@@ -38,11 +39,12 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
 
-    public UserFeedAdapter(List<PostListItem> postList, int likedBoolean, LikeCommunicator likeCommunicator,String userId) {
+    public UserFeedAdapter(List<PostListItem> postList, int likedBoolean, LikeCommunicator likeCommunicator,String userId, String name) {
         this.userId=userId;
         this.postList = postList;
         this.likedBoolean = likedBoolean;
         this.likeCommunicator = likeCommunicator;
+        this.name=name;
     }
 
     @Override
@@ -94,7 +96,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         {
             likedBoolean=1;
         }
-            ((ImageViewHolder) viewHolder).bind(postList.get(position),likedBoolean,postList.get(position).getPostId());
+            ((ImageViewHolder) viewHolder).bind(postList.get(position),likedBoolean,postList.get(position).getPostId(),postList.get(position).getPostLikes().size(),postList.get(position).getPostsComments().size());
 
         }
         else if (viewHolder.getItemViewType() == 2 )
@@ -103,7 +105,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             {
                 likedBoolean=1;
             }
-            ((VideoViewHolder) viewHolder).bind(postList.get(position),likedBoolean,postList.get(position).getPostId());
+            ((VideoViewHolder) viewHolder).bind(postList.get(position),likedBoolean,postList.get(position).getPostId(),postList.get(position).getPostLikes().size(),postList.get(position).getPostsComments().size());
 
 
         }
@@ -111,7 +113,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         {
             likedBoolean=1;
         }
-            ((TextViewHolder) viewHolder).bind(postList.get(position),likedBoolean,postList.get(position).getPostId());
+            ((TextViewHolder) viewHolder).bind(postList.get(position),likedBoolean,postList.get(position).getPostId(),postList.get(position).getPostLikes().size(),postList.get(position).getPostsComments().size());
 
 
         }
@@ -149,17 +151,20 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
         }
-        public void bind(final PostListItem postListItem, int liked, final String postid){
+
+        //bind of text waala
+        public void bind(final PostListItem postListItem, int liked, final String postid,int postlikes, int postcomments){
             this.textView.setText(String.valueOf("Post Text "+postListItem.getDescription()));
            this.userDp.setImageResource(R.drawable.bunny);
-            this.username.setText("USERNAME " + postListItem.getUserId());
-            like.setText(String.valueOf("Like " +postListItem.getPostLikes().size()));
-            comment.setText(String.valueOf("Comments "+postListItem.getPostsComments().size()));
+            this.username.setText("USERNAME " + name);
+            like.setText(String.valueOf("Like " +String.valueOf(postlikes)));
+            comment.setText(String.valueOf("Comments "+String.valueOf(postcomments)));
             if(liked==1)
             {
                 like_iv.setBackgroundColor(Color.parseColor("#FF0000"));
+                like.setText("Like "+postlikes);
             }
-            staticlikes=postListItem.getPostLikes().size();
+            staticlikes=postlikes;
             like_iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -174,7 +179,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     else
                     {
                         likedBoolean=0;
-                        staticlikes-=1;
+                        staticlikes=staticlikes-1;
                         like.setText("Like "+ staticlikes);
                         like_iv.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     }
@@ -217,18 +222,21 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
 
         }
-        public void bind(final PostListItem postListItem, int liked, final String postid){
+
+        //bind of image waala
+        public void bind(final PostListItem postListItem, int liked, final String postid,int postlikes, int postcomments){
 
             Glide.with(imageView.getContext()).load(postListItem.getUrl()).into(imageView);
-            this.username.setText("USERNAME " + postListItem.getUserId());
+            this.username.setText("USERNAME " + name);
             this.userDp.setImageResource(R.drawable.bunny);
-            like.setText(String.valueOf("Likes "+ postListItem.getPostLikes().size()));
-            comment.setText(String.valueOf("Comments "+postListItem.getPostsComments().size()));
+            like.setText(String.valueOf("Likes "+ String.valueOf(postlikes)));
+            comment.setText(String.valueOf("Comments "+String.valueOf(postcomments)));
             if(liked==1)
             {
                 like_iv.setBackgroundColor(Color.parseColor("#FF0000"));
+                like.setText("Like "+postlikes);
             }
-            staticlikes=postListItem.getPostLikes().size();
+            staticlikes=postlikes;
             like_iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -243,7 +251,7 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     else
                     {
                         likedBoolean=0;
-                        staticlikes-=1;
+                        staticlikes=staticlikes-1;
                         like.setText("Like "+ staticlikes);
                         like_iv.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     }
@@ -283,17 +291,26 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             like_iv=itemView.findViewById(R.id.LikeImage3);
 
         }
-        public void bind(final PostListItem postListItem, int liked, final String postid){
 
+
+        //video wala
+        public void bind(final PostListItem postListItem,final int liked, final String postid, final int postlikes, int postcomments){
+
+            System.out.println("video called");
             this.userDp.setImageResource(R.drawable.bunny);
-            this.username.setText("USERNAME " + postListItem.getUserId());
-            like.setText(String.valueOf("Likes "+postListItem.getPostLikes().size()));
-            comment.setText(String.valueOf("Comments "+postListItem.getPostsComments().size()));
+            this.username.setText("USERNAME " + name);
+            like.setText(String.valueOf("Likes "+String.valueOf(postlikes)));
+            comment.setText(String.valueOf("Comments "+String.valueOf(postcomments)));
+            System.out.println(liked);
+            System.out.println(postlikes);
             if(liked==1)
             {
+                System.out.println("inside of video post likes");
                 like_iv.setBackgroundColor(Color.parseColor("#FF0000"));
+                like.setText("Like "+postlikes);
+
             }
-            staticlikes=postListItem.getPostLikes().size();
+            staticlikes=postlikes;
             like_iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -308,11 +325,12 @@ public class UserFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     else
                     {
                         likedBoolean=0;
-                        staticlikes-=1;
+                        staticlikes=staticlikes-1;
                         like.setText("Like "+ staticlikes);
                         like_iv.setBackgroundColor(Color.parseColor("#FFFFFF"));
                     }
                     likeCommunicator.returnLikeStatus(likedBoolean,postid);
+
                 }
             });
             comment.setOnClickListener(new View.OnClickListener() {

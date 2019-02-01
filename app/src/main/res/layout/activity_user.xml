@@ -219,7 +219,8 @@
             android:background="@drawable/buttonstyle"
             android:text="Follow "
             android:textColor="#fff"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:id="@+id/followBtn"/>
 
 </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

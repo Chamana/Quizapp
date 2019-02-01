@@ -56,6 +56,7 @@ public class FeedPageFragment extends Fragment implements FeedAdapter.FeedPageCo
     List<FeedsListItem> homeFeedResponses=new ArrayList<>();
     List<ResponseItem> advertisementResponses=new ArrayList<>();
     int count = 0;
+    RecyclerView feedRV;
 
     @Nullable
     @Override
@@ -98,7 +99,8 @@ public class FeedPageFragment extends Fragment implements FeedAdapter.FeedPageCo
                 getActivity().startActivity(new Intent(getActivity(), CreatePostActivity.class));
             }
         });
-        final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
+        feedRV=view.findViewById(R.id.feedRV);
+//        final RecyclerView recyclerView = view.findViewById(R.id.feedRV);
         final List<FeedsListItem> feedList = new ArrayList<>();
         OkHttpClient client = new OkHttpClient.Builder().build();
         final Retrofit retrofit = new Retrofit.Builder()
@@ -110,59 +112,25 @@ public class FeedPageFragment extends Fragment implements FeedAdapter.FeedPageCo
         iConnectAPI.getHomeFeedResponse(userId).enqueue(new Callback<HomeFeedResponse>() {
             @Override
             public void onResponse(Call<HomeFeedResponse> call, Response<HomeFeedResponse> response) {
-                if(null!=response.body()) {
-                    if(response.body().getFeedsList().size()>0) {
+//                if(null!=response.body()) {
+//                    if(response.body().getFeedsList().size()>0) {
                         System.out.println("Inside response method");
                         System.out.println(response.body());
                         homeFeedResponses.addAll(response.body().getFeedsList());
-                        ++count;
-                        setAdapter(recyclerView);
-                    }else{
-                        Toast.makeText(getActivity(), "No feeds available.", Toast.LENGTH_SHORT).show();
-                    }
-                }else{
-                    Toast.makeText(getContext(), "Unable to reach server.", Toast.LENGTH_SHORT).show();
-                }
+                        feedRV.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        feedRV.setAdapter(new FeedAdapter(homeFeedResponses,likedBoolean,userId,FeedPageFragment.this));
+//                    }else{
+//                        Toast.makeText(getActivity(), "No feeds available.", Toast.LENGTH_SHORT).show();
+//                    }
+//                }else{
+//                    Toast.makeText(getContext(), "Unable to reach server.", Toast.LENGTH_SHORT).show();
+//                }
             }
             @Override
             public void onFailure(Call<com.example.quizapp.response.HomeFeedResponse> call, Throwable t) {
                 System.out.println("fail" + t.getLocalizedMessage());
             }
         });
-
-        final Retrofit retrofit2 = new Retrofit.Builder()
-                .baseUrl("http://10.177.7.88:6000")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(client)
-                .build();
-        IConnectAPI iConnectAPI2 = retrofit2.create(IConnectAPI.class);
-        iConnectAPI2.getAdvertisements(AppController.sharedPreferences.getString("userId",""), 4).enqueue(new Callback<AdvertisementResponse>() {
-            @Override
-            public void onResponse(Call<AdvertisementResponse> call, Response<AdvertisementResponse> response) {
-                if (("SUCCESS").equals(response.body().getStatus())) {
-
-                    advertisementResponses.addAll(response.body().getResponse());
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                    ++count;
-                    setAdapter(recyclerView);
-                } else {
-                    Toast.makeText(getContext(), "Failure", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<AdvertisementResponse> call, Throwable t) {
-                System.out.println("fail" + t.getLocalizedMessage());
-            }
-        });
-
-    }
-
-    private void setAdapter(RecyclerView recyclerView) {
-        if (count == 2) {
-            feedAdapter = new FeedAdapter(homeFeedResponses, advertisementResponses, likedBoolean, userId, FeedPageFragment.this);
-            recyclerView.setAdapter(feedAdapter);
-        }
     }
     @Override
     public void returnLikeStatus(int likedBoolean, String postId) {

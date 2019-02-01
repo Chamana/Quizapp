@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
 import com.example.quizapp.R;
+import com.example.quizapp.fragment.FeedPageFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -24,7 +26,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feed_page);
+        setContentView(R.layout.activity_main);
+        FrameLayout frameLayout=findViewById(R.id.FeedPageFrameLayout);
+        getSupportFragmentManager().beginTransaction().replace(R.id.FeedPageFrameLayout,new FeedPageFragment()).commit();
 
     }
 

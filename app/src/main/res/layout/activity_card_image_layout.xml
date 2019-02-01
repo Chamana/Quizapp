@@ -51,7 +51,7 @@
 
         <ImageView
             android:id="@+id/postImageI"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -60,10 +60,9 @@
             android:layout_marginRight="8dp"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptonI"
-            tools:srcCompat="@tools:sample/backgrounds/scenic[2]" />
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/textView2"
@@ -72,7 +71,7 @@
             android:layout_marginTop="8dp"
             android:text="TextView"
             app:layout_constraintTop_toBottomOf="@+id/postImageI"
-            tools:layout_editor_absoluteX="16dp" />
+            tools:layout_editor_absoluteX="0dp" />
 
         <TextView
             android:id="@+id/descriptonI"
@@ -105,7 +104,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2">
 
             <Button
-                android:id="@+id/likeButton"
+                android:id="@+id/likedButtonI"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"

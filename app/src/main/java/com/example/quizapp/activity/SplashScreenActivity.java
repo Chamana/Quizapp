@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import com.example.quizapp.R;
-import com.example.quizapp.utils.AppController;
+import com.example.quizapp.api.AppController;
 
 public class SplashScreenActivity extends AppCompatActivity {
     @Override

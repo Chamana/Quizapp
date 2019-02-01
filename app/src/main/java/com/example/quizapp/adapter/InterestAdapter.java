@@ -66,7 +66,7 @@ public class InterestAdapter extends RecyclerView.Adapter<InterestAdapter.ViewHo
 
     public void selColor(TextView interest_tv){
         interest_tv.setBackgroundDrawable(interest_tv.getResources().getDrawable(R.drawable.interest_bgk_selected));
-        interest_tv.setTextColor(interest_tv.getResources().getColor(R.color.colorPrimary));
+        interest_tv.setTextColor(interest_tv.getResources().getColor(R.color.colorPrimaryDark));
     }
 
     public void unselColor(TextView interest_tv){

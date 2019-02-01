@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -18,11 +17,10 @@ import android.widget.Toast;
 import com.example.quizapp.R;
 import com.example.quizapp.adapter.InterestAdapter;
 import com.example.quizapp.api.IConnectAPI;
-import com.example.quizapp.models.request.LoginRequest;
 import com.example.quizapp.models.request.UpdateProfileRequest;
-import com.example.quizapp.models.response.InterestListResponse;
-import com.example.quizapp.models.response.UpdateProfileResponse;
-import com.example.quizapp.utils.AppController;
+import com.example.quizapp.models.Response.InterestListResponse;
+import com.example.quizapp.models.Response.UpdateProfileResponse;
+import com.example.quizapp.api.AppController;
 import com.example.quizapp.utils.ProgressBarUtility;
 
 import java.util.ArrayList;
@@ -31,8 +29,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import static android.view.View.GONE;
 
 public class InterestActivity extends AppCompatActivity implements InterestAdapter.ICommunicator, View.OnClickListener {
 

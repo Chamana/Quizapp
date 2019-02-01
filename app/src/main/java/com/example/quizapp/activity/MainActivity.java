@@ -2,6 +2,7 @@ package com.example.quizapp.activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.quizapp.R;
+import com.example.quizapp.api.AppController;
 import com.example.quizapp.fragment.ContestFragment;
 import com.example.quizapp.fragment.SocialMediaFragment;
 
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar =findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         tabLayout = findViewById(R.id.main_tab_layout);
@@ -50,6 +52,11 @@ public class MainActivity extends AppCompatActivity
         socialMedia.setText("Social Media");
         socialMedia.setIcon(R.drawable.socialmedia);
         tabLayout.addTab(socialMedia);
+
+        if(!AppController.sharedPreferences.getBoolean("isInterestSet",false)){
+            startActivity(new Intent(MainActivity.this,InterestActivity.class));
+        }
+
         if (savedInstanceState == null) {
             fragment = new ContestFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.simpleFrameLayout, fragment).commit();
@@ -144,7 +151,10 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, LeaderBoard.class));
 
         } else if (id == R.id.nav_log_out) {
-
+            SharedPreferences.Editor editor=AppController.sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
+            startActivity(new Intent(MainActivity.this,LoginActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK));
         }
 
 

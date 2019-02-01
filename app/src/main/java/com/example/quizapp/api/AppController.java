@@ -96,7 +96,7 @@ public class AppController extends Application {
 
         if (null == notification_retrofit) {
             notification_retrofit = new Retrofit.Builder()
-                    .baseUrl("http://10.177.7.144:8085")
+                    .baseUrl("http://10.177.7.147:8085")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build();

@@ -54,6 +54,5 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         Log.i("Token Firebase",s);
-        Toast.makeText(this, "Token Firebase"+s, Toast.LENGTH_SHORT).show();
     }
 }
